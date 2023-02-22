@@ -1,0 +1,39 @@
+# depslib dependency file v1.0
+1677056226 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\main.cpp
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	<iostream>
+	"Game.h"
+
+1677003285 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\common_function.cpp
+	"Common_Function.h"
+
+1677003931 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\common_function.h
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+
+1677056850 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\game.h
+	"LTexture.h"
+
+1677035945 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\texture.cpp
+	"Texture.h"
+
+1677035944 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\texture.h
+
+1677054502 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\game.cpp
+	"Game.h"
+
+1677056646 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\ltexture.cpp
+	"LTexture.h"
+
+1677056630 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	<iostream>
+
