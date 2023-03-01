@@ -6,8 +6,12 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
+
+static const int SCREEN_WIDTH = 1280;
+static const int SCREEN_HEIGHT = 720;
 
 class LTexture
 {
@@ -20,6 +24,7 @@ class LTexture
 
 		//Loads image from file (load anh tu file)
 		bool loadFromFile( std::string path,SDL_Renderer* m_Renderer );
+
 
 		//Deallocates texture (giai phong anh)
 		void free();

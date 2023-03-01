@@ -1,6 +1,8 @@
 #include "Game.h"
 
+Player m_go ;
 
+LTexture m_Background;
 Game::Game()
 {
     //ctor
@@ -8,13 +10,6 @@ Game::Game()
     m_Renderer=NULL;
 
 }
-
-/*Game::~Game()
-{
-    //dtor
-
-}
-*/
 
 void Game::init()
 {
@@ -58,35 +53,58 @@ void Game::init()
 
 }
 
-void Game::render()
+void Game::draw()
 {
     SDL_RenderClear(m_Renderer); // clear the renderer tothe draw color
-    SDL_RenderPresent(m_Renderer); // draw to the screen
+//m_Background.render( 0, 0,m_Renderer );
+
+    m_go.draw(m_Renderer);
+
+
 }
 
+void Game::loadmedia()
+{
+    m_Background.loadFromFile( "background.png" ,m_Renderer);
+    m_go.load(128,170,"rocket.png");
+
+
+}
 
 void Game::handleEvents()
-{
-    SDL_Event event;
-    if(SDL_PollEvent(&event))
     {
-        switch (event.type)
+        SDL_Event e;
+        while (SDL_PollEvent( &e ) )
         {
-        case SDL_QUIT:
-            m_Running = false;
-            break;
-        default:
-            break;
-    }
+            if( e.type == SDL_QUIT )
+            {
+                m_Running = false;
+            }
+            m_go.handleEvent( e,m_Renderer);
+
+        }
+        m_go.handleBullet(m_Renderer);
+        m_go.move();
+          SDL_RenderPresent(m_Renderer);
+
+
+
+
 
 }
+
+void Game::update()
+{
+
 }
 
-void Game::clean()
+void Game::close()
 {
     //Destroy window
 	SDL_DestroyRenderer( m_Renderer );
 	SDL_DestroyWindow( m_Window );
+	m_go.clean();
+
 	m_Window = NULL;
 	m_Renderer = NULL;
 

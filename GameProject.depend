@@ -1,10 +1,5 @@
 # depslib dependency file v1.0
-1677056226 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\main.cpp
-	<SDL.h>
-	<SDL_image.h>
-	<stdio.h>
-	<string>
-	<iostream>
+1677345887 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\main.cpp
 	"Game.h"
 
 1677003285 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\common_function.cpp
@@ -16,24 +11,46 @@
 	<stdio.h>
 	<string>
 
-1677056850 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\game.h
+1677405064 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\game.h
 	"LTexture.h"
+	"GameObject.h"
+	"Player.h"
 
 1677035945 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\texture.cpp
 	"Texture.h"
 
 1677035944 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\texture.h
 
-1677054502 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\game.cpp
+1677422980 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\game.cpp
 	"Game.h"
 
-1677056646 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\ltexture.cpp
+1677405668 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\ltexture.cpp
 	"LTexture.h"
 
-1677056630 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\ltexture.h
+1677406357 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\ltexture.h
 	<SDL.h>
 	<SDL_image.h>
 	<stdio.h>
 	<string>
 	<iostream>
+	<vector>
+
+1677423096 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\gameobject.cpp
+	"GameObject.h"
+
+1677385722 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\gameobject.h
+	"LTexture.h"
+
+1677423169 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\player.cpp
+	"Player.h"
+
+1677422709 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\player.h
+	"GameObject.h"
+	"Bullet.h"
+
+1677423219 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject\src\bullet.cpp
+	"Bullet.h"
+
+1677421568 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\bullet.h
+	"GameObject.h"
 
