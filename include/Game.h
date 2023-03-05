@@ -3,7 +3,7 @@
 #include "LTexture.h"
 #include "GameObject.h"
 #include "Player.h"
-
+#include "Enemy.h"
 using namespace std;
 
 class Game

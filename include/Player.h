@@ -2,10 +2,13 @@
 #define PLAYER_H
 #include "GameObject.h"
 #include "Bullet.h"
+
+#define PLAYER_WIDTH 120
+#define PLAYER_HEIGHT 170
 class Player:public GameObject
 {
     public:
-        static const int PLAYER_VEL = 5;
+        static const int PLAYER_VEL = 20;
 
         Player();
 

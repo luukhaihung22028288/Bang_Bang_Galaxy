@@ -16,8 +16,8 @@ class Bullet:public GameObject
 
         //void handleEvent( SDL_Event& e );
         void HandleMove(const int& x_border, const int& y_border);
-
-        void loadImg(SDL_Renderer* m_Renderer);
+        void HandleEnemyMove();
+        void loadBullet(string textureID,SDL_Renderer* m_Renderer);
         void render (SDL_Renderer* m_Renderer);
         void SetPos(int PosX,int PosY) {m_PosX=PosX, m_PosY=PosY;}
 

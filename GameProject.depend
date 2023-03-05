@@ -54,3 +54,93 @@
 1677421568 c:\users\chaka\onedrive\máy tính\sdl2\gameproject\include\bullet.h
 	"GameObject.h"
 
+1677345887 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\main.cpp
+	"Game.h"
+
+1677405064 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\include\game.h
+	"LTexture.h"
+	"GameObject.h"
+	"Player.h"
+
+1677406357 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	<iostream>
+	<vector>
+
+1677679961 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\include\gameobject.h
+	"LTexture.h"
+
+1677679540 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\include\player.h
+	"GameObject.h"
+	"Bullet.h"
+
+1677421568 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\include\bullet.h
+	"GameObject.h"
+
+1677679616 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\src\bullet.cpp
+	"Bullet.h"
+
+1677679969 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\src\game.cpp
+	"Game.h"
+
+1677679949 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\src\gameobject.cpp
+	"GameObject.h"
+
+1677405668 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\src\ltexture.cpp
+	"LTexture.h"
+
+1677680067 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.1\src\player.cpp
+	"Player.h"
+
+1677684706 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\main.cpp
+	"Game.h"
+
+1677683713 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\game.h
+	"LTexture.h"
+	"GameObject.h"
+	"Player.h"
+	"Enemy.h"
+
+1677406357 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\ltexture.h
+	<SDL.h>
+	<SDL_image.h>
+	<stdio.h>
+	<string>
+	<iostream>
+	<vector>
+
+1677947202 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\gameobject.h
+	"LTexture.h"
+
+1677685560 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\player.h
+	"GameObject.h"
+	"Bullet.h"
+
+1677747371 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\bullet.h
+	"GameObject.h"
+
+1677775689 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\bullet.cpp
+	"Bullet.h"
+
+1677405668 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\ltexture.cpp
+	"LTexture.h"
+
+1678027521 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\player.cpp
+	"Player.h"
+
+1677952109 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\game.cpp
+	"Game.h"
+
+1677682248 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\gameobject.cpp
+	"GameObject.h"
+
+1677947991 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\include\enemy.h
+	"GameObject.h"
+	"Bullet.h"
+
+1677951941 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.2\src\enemy.cpp
+	"Enemy.h"
+

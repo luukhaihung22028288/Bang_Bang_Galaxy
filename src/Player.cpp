@@ -2,6 +2,9 @@
 
 Player::Player()
 {
+    m_width=PLAYER_WIDTH;
+    m_height=PLAYER_HEIGHT;
+
     m_PosX = SCREEN_WIDTH/2;
     m_PosY = SCREEN_HEIGHT/2;
 
@@ -11,6 +14,7 @@ Player::Player()
 
 void Player::handleEvent( SDL_Event& e,SDL_Renderer* m_Renderer )
 {
+    /*
     //If a key was pressed
 	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
@@ -35,17 +39,26 @@ void Player::handleEvent( SDL_Event& e,SDL_Renderer* m_Renderer )
             case SDLK_RIGHT: m_VelX -= PLAYER_VEL; break;
         }
     }
+    */
+     if(e.type==SDL_MOUSEMOTION)
+    {
+
+        int x,y;
+        SDL_GetMouseState(&x,&y);
+        m_PosX=x-m_width/2;
+        m_PosY=y-m_height/2;
+    }
     else if (e.type == SDL_MOUSEBUTTONDOWN)
     {
 
         if (e.button.button == SDL_BUTTON_LEFT)
         {
             Bullet* m_bullet = new Bullet();
-            cout << "Shopot";
-            m_bullet->load(SPHERE_WIDTH ,SPHERE_HEIGHT,"sphere.png");
-            m_bullet->loadImg(m_Renderer);
+
+
+            m_bullet->loadBullet("sphere.png",m_Renderer);
             m_bullet->SetPos(this->m_PosX+m_width/2,this->m_PosY);
-            m_bullet->set_x_val(1);
+            m_bullet->set_x_val(10);
             m_bullet->set_is_move(true);
 
 
@@ -76,7 +89,7 @@ void Player::handleBullet(SDL_Renderer* m_Renderer)
                 {
                     delete m_bullet;
                     m_bullet=NULL;
-                    cout << "xoa";
+
                 }
             }
         }
