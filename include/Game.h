@@ -1,10 +1,5 @@
 #ifndef GAME_H
 #define GAME_H
-#include "LTexture.h"
-#include "GameObject.h"
-#include "Player.h"
-#include "Enemy.h"
-using namespace std;
 
 class Game
 {
@@ -28,8 +23,7 @@ public:
 
     bool m_Running;
 
-    SDL_Window* m_Window;
-    SDL_Renderer* m_Renderer;
+
 };
 
 #endif // GAME_H

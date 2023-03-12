@@ -2,121 +2,130 @@
 
 Player::Player()
 {
-    m_width=PLAYER_WIDTH;
-    m_height=PLAYER_HEIGHT;
+    width_frame=PLAYER_WIDTH;
+    height_frame=PLAYER_HEIGHT;
 
-    m_PosX = SCREEN_WIDTH/2;
-    m_PosY = SCREEN_HEIGHT/2;
+    x_pos = SCREEN_WIDTH/2;
+    y_pos = SCREEN_HEIGHT/2;
 
-    m_VelX = 0;
-    m_VelY = 0;
+
 }
 
-void Player::handleEvent( SDL_Event& e,SDL_Renderer* m_Renderer )
+Player::~Player()
 {
-    /*
-    //If a key was pressed
-	if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: m_VelY -= PLAYER_VEL; break;
-            case SDLK_DOWN: m_VelY += PLAYER_VEL; break;
-            case SDLK_LEFT: m_VelX -= PLAYER_VEL; break;
-            case SDLK_RIGHT: m_VelX += PLAYER_VEL; break;
-        }
-    }
-    //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: m_VelY += PLAYER_VEL; break;
-            case SDLK_DOWN: m_VelY -= PLAYER_VEL; break;
-            case SDLK_LEFT: m_VelX += PLAYER_VEL; break;
-            case SDLK_RIGHT: m_VelX -= PLAYER_VEL; break;
-        }
-    }
-    */
-     if(e.type==SDL_MOUSEMOTION)
-    {
 
+}
+
+bool Player::LoadImg(string path, SDL_Renderer* screen)
+{
+    bool ret=LTexture::LoadTexture(path,screen);
+
+    if(ret==true)
+    {
+        width_frame=Rect.w;
+        height_frame=Rect.h;
+    }
+    return ret;
+}
+
+void Player::Show(SDL_Renderer* des,const SDL_Rect* clip)
+{
+    Rect.x=x_pos;
+    Rect.y=y_pos;
+
+    SDL_Rect RenderQuad={Rect.x,Rect.y,width_frame,height_frame};
+
+    SDL_RenderCopy(des,p_texture,clip,&RenderQuad);
+}
+
+SDL_Rect Player::GetHitBox()
+{
+    SDL_Rect hit_box;
+    hit_box.x=Rect.x;
+    hit_box.y=Rect.y;
+    hit_box.w=width_frame;
+    hit_box.h=height_frame;
+    return hit_box;
+}
+
+
+void Player::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
+{
+
+    if(events.type==SDL_MOUSEBUTTONDOWN || events.type==SDL_MOUSEBUTTONUP || events.type==SDL_MOUSEMOTION)
+    {
+        input_mouse=1;
         int x,y;
         SDL_GetMouseState(&x,&y);
-        m_PosX=x-m_width/2;
-        m_PosY=y-m_height/2;
+        x_pos=x-width_frame/2;
+        y_pos=y-height_frame/2;
     }
-    else if (e.type == SDL_MOUSEBUTTONDOWN)
+    if(events.type==SDL_MOUSEBUTTONDOWN)
     {
-
-        if (e.button.button == SDL_BUTTON_LEFT)
+        if(events.button.button==SDL_BUTTON_LEFT)
         {
-            Bullet* m_bullet = new Bullet();
-
-
-            m_bullet->loadBullet("sphere.png",m_Renderer);
-            m_bullet->SetPos(this->m_PosX+m_width/2,this->m_PosY);
-            m_bullet->set_x_val(10);
-            m_bullet->set_is_move(true);
-
-
-            m_bullet_list.push_back(m_bullet);
+            canspawnbullet=1;
         }
+    }
+    else if(events.type==SDL_MOUSEBUTTONUP)
+    {
+        canspawnbullet=0;
     }
 }
 
-void Player::handleBullet(SDL_Renderer* m_Renderer)
+void Player::SpawnBullet(SDL_Renderer* screen)
 {
-    for (int i=0;i< m_bullet_list.size();i++)
+    CurrentTime=SDL_GetTicks();
+    if(canspawnbullet &&CurrentTime>LastTime+200)
     {
-        Bullet* m_bullet = m_bullet_list.at(i);
+        Bullet* p_bullet=new Bullet();
+        p_bullet->LoadTexture("bullet.png",screen);
+        p_bullet->set_pos(Rect.x+width_frame/2-18,Rect.y+height_frame*0.1);
+        //p_bullet->set_angle(angle);
+        p_bullet->set_x_speed(5);
+        p_bullet->set_y_speed(5);
+        p_bullet->set_is_move(true);
+        p_bullet_list.push_back(p_bullet);
+        LastTime=CurrentTime;
+    }
+}
 
-        if( m_bullet!=NULL)
+void Player::HandleBullet(SDL_Renderer* des)
+{
+    for(int i=0;i<p_bullet_list.size();i++)
+    {
+        Bullet* p_bullet=p_bullet_list.at(i);
+        if(p_bullet!=NULL)
         {
-            if (m_bullet->get_is_move()==true)
+            if(p_bullet->get_is_move()==true)
             {
-
-                m_bullet->HandleMove(SCREEN_WIDTH, SCREEN_HEIGHT);
-                m_bullet->render(m_Renderer);
-
+                p_bullet->HandleMove(SCREEN_WIDTH,SCREEN_HEIGHT);
+                p_bullet->Render(des);
             }
             else
             {
-                m_bullet_list.erase(m_bullet_list.begin() + i);
-                if(m_bullet!=NULL)
+                p_bullet_list.erase(p_bullet_list.begin()+i);
+                if(p_bullet!=NULL)
                 {
-                    delete m_bullet;
-                    m_bullet=NULL;
-
+                    delete p_bullet;
+                    p_bullet=NULL;
                 }
             }
         }
     }
 }
 
-
-
-void Player::move ()
+void Player::RemoveBullet(const int &index)
 {
-    //Move  left or right
-    m_PosX += m_VelX;
-
-    //If went too far to the left or right
-    if( ( m_PosX < 0 ) || ( m_PosX + m_width > SCREEN_WIDTH ) )
+    int n=p_bullet_list.size();
+    if(n>0 && index<n)
     {
-        //Move back
-        m_PosX -= m_VelX;
-    }
-
-    //Move  up or down
-    m_PosY += m_VelY;
-
-    //If  went too far up or down
-    if( ( m_PosY < 0 ) || ( m_PosY + m_height > SCREEN_HEIGHT ) )
-    {
-        //Move back
-        m_PosY -= m_VelY;
+        Bullet*p_bullet=p_bullet_list.at(index);
+        p_bullet_list.erase(p_bullet_list.begin()+index);
+        if(p_bullet)
+        {
+            delete p_bullet;
+            p_bullet=NULL;
+        }
     }
 }

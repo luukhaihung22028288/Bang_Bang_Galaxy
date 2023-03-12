@@ -1,43 +1,55 @@
 #ifndef BULLET_H
 #define BULLET_H
-#include "GameObject.h"
+#include "LTexture.h"
+#include "Game_Utils.h"
 
 
 #define SPHERE_WIDTH 10
 #define SPHERE_HEIGHT 10
 
-class Bullet:public GameObject
+class Bullet:public LTexture
 {
 
     public:
 
 
-        Bullet();
+    Bullet();
+    ~Bullet();
 
-        //void handleEvent( SDL_Event& e );
-        void HandleMove(const int& x_border, const int& y_border);
-        void HandleEnemyMove();
-        void loadBullet(string textureID,SDL_Renderer* m_Renderer);
-        void render (SDL_Renderer* m_Renderer);
-        void SetPos(int PosX,int PosY) {m_PosX=PosX, m_PosY=PosY;}
+    void set_x_speed(const double& xSpeed) {x_speed=xSpeed;}
+    void set_y_speed(const double& ySpeed) {y_speed=ySpeed;}
+   // void set_angle(const double& angle_) {angle=angle_;}
+    //void set_type(const int& type_) {type=type_;}
+    void set_starting_point(const double& start) {starting_point=start;}
 
-        void set_x_val(const int& Xval) {x_val=Xval;};
-        void set_y_val(const int& Yval) {y_val=Yval;};
+    void set_pos(const double& xPos, const double& yPos)
+    {
+        x_pos=xPos;
+        y_pos=yPos;
+    }
+    int get_posX(){return x_pos;}
 
-        int get_x_val() const {return x_val;};
-        int get_y_val() const {return y_val;};
+    void set_is_move(const bool &isMove) {is_move=isMove;}
 
-        bool get_is_move () const {return is_move;}
-        void set_is_move (bool fire) {is_move=fire;}
+     bool get_is_move() const {return is_move;}
 
+    void HandleMove(const int &x_border,const int &y_border);
+    void HandleEnemyMove();
 
     private:
 
-        int x_val;
-        int y_val;
-        bool is_move;
-        LTexture bullet_img;
+    double x_pos;
+    double y_pos;
 
+    double x_speed;
+    double y_speed;
+
+
+    //double angle;
+    double starting_point;
+
+    bool is_move;
+    //int type;
 };
 
 #endif // BULLET_H

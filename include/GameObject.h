@@ -6,9 +6,14 @@ class GameObject
 {
     public:
         GameObject();
-        void loadImg( string textureID,SDL_Renderer* m_Renderer);
-        void draw(SDL_Renderer* m_Renderer);
-        void SetPos(int PosX,int PosY) {m_PosX=PosX, m_PosY=PosY;};
+
+        void LoadTexture(string path, SDL_Renderer* screen);
+        void Show(SDL_Renderer* des);
+        void set_positions(const int x,const int y)
+    {
+        m_PosX=x;
+        m_PosY=y;
+    }
         //void update();
         void clean();
     protected:

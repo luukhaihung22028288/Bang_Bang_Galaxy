@@ -7,18 +7,19 @@ GameObject::GameObject() {
 
 }
 
- void GameObject::loadImg(string textureID,SDL_Renderer* m_Renderer)
+ void GameObject::LoadTexture(string path, SDL_Renderer* screen)
 {
 
-
-    m_GameObject.loadFromFile(textureID, m_Renderer);
+    m_GameObject.LoadTexture( path, screen);
 
 }
 
 
-void GameObject::draw(SDL_Renderer* m_Renderer) {
+void GameObject::Show(SDL_Renderer* screen )
+ {
+    SDL_Rect RenderQuad={m_PosX,m_PosY,m_width,m_height};
 
-    m_GameObject.render(m_PosX, m_PosY, m_Renderer);
+    SDL_RenderCopy(screen,p_texture,current_clip,&RenderQuad);
 
 }
 

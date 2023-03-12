@@ -2,78 +2,105 @@
 
 Enemy::Enemy()
 {
-    m_PosX=0;
-    m_PosY=0;
-    m_width=ENEMY_WIDTH;
-    m_height=ENEMY_HEIGHT;
+    x_pos=0;
+    y_pos=0;
+    x_speed=0;
+    y_speed=0;
 
-    x_val=0;
-    y_val=0;
 
-    is_move=true;
+    width_frame=0;
+    height_frame=0;
+
+
+    y_limit=0;
+    delay_shoot_time=300;
+    health=0;
+    score=0;
+
+    CurrentTime=0;
+    LastTime=0;
+
+
 
 }
-
 Enemy::~Enemy()
 {
 
 }
-void Enemy::HandleMove (const int& x_border, const int& y_border)
+
+bool Enemy::LoadImg(string path, SDL_Renderer* screen)
 {
-    if(is_move)
+    bool ret=LTexture::LoadTexture(path,screen);
+
+    if(ret==true)
     {
-        m_PosY+=y_val;
-
-        if (m_PosY==y_border)
-        {
-        y_val=0;
-        m_PosX+=x_val;
-        }
-
-        if (m_PosX==x_border)
-    {
-        set_is_move(false);
-        x_val=0;
+        width_frame=Rect.w;
+        height_frame=Rect.h;
     }
-    }
-
-    //if (m_PosX>x_border) m_PosX=0;
+    return ret;
 }
 
-void Enemy:: SetBullet(Bullet* m_bullet,SDL_Renderer* m_Renderer)
+void Enemy::Show(SDL_Renderer* screen,const SDL_Rect* clip)
 {
-    if(m_bullet!=NULL)
-    {
-        m_bullet->loadBullet("sphere.png",m_Renderer);
-        m_bullet->set_is_move(true);
+    Rect.x=x_pos;
+    Rect.y=y_pos;
 
-         m_bullet->set_x_val(10);
-        m_bullet_list.push_back(m_bullet);
-    }
+
+    SDL_Rect RenderQuad={Rect.x,Rect.y,width_frame,height_frame};
+
+    SDL_RenderCopy(screen,p_texture,clip,&RenderQuad);
 }
-void Enemy:: MakeBullet(SDL_Renderer* m_Renderer, const int& x_limit, const int& y_limit)
+
+void Enemy::MoveThreat()
 {
-    for (int i=0;i<m_bullet_list.size();i++)
+    y_pos+=y_speed;
+    if(y_pos>=y_limit)
     {
-        Bullet* m_bullet=m_bullet_list.at(i);
-        if(m_bullet!=NULL)
+        y_pos=y_limit;
+
+    }
+
+}
+
+bool Enemy::canspawnbullet()
+{
+    CurrentTime=SDL_GetTicks();
+    bool check_can_spawn=false;
+    if(CurrentTime>LastTime+delay_shoot_time && y_pos>=y_limit)
         {
-            if(m_bullet->get_is_move())
-            {
-
-                m_bullet->render(m_Renderer);
-
-                 m_bullet->HandleEnemyMove();
-
-            }
-            else
-            {
-                 m_bullet->set_is_move(true);
-                 m_bullet->SetPos(m_PosX+m_width/2,m_PosY+m_height/2);
-            }
+            LastTime=CurrentTime;
+            check_can_spawn=true;
 
         }
-    }
+    return check_can_spawn;
 }
+
+
+void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen)
+{
+    delay_shoot_time=400;
+    Bullet*p_bullet=new Bullet();
+    p_bullet->LoadTexture("BulletThreat2.png",screen);
+
+    p_bullet->set_is_move(true);
+    p_bullet->set_x_speed(2);
+    p_bullet->set_y_speed(10);
+   p_bullet->set_pos(x_pos+width_frame/2-(p_bullet->GetRect().w)/2,y_pos+24);
+
+    bullet.push_back(p_bullet);
+
+
+}
+
+void Enemy::set_stats(SDL_Renderer* screen)
+{
+    LoadImg("enemy1.png",screen);
+    score=100;
+    y_speed=2;
+}
+
+
+
+
 
 

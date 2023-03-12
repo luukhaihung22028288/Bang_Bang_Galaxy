@@ -35,18 +35,22 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/Bullet.h" />
+		<Unit filename="include/Collision.h" />
 		<Unit filename="include/Enemy.h" />
-		<Unit filename="include/Game.h" />
-		<Unit filename="include/GameObject.h" />
+		<Unit filename="include/Enemy_Array.h" />
+		<Unit filename="include/Game_Utils.h" />
 		<Unit filename="include/LTexture.h" />
 		<Unit filename="include/Player.h" />
+		<Unit filename="include/Text.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Bullet.cpp" />
+		<Unit filename="src/Collision.cpp" />
 		<Unit filename="src/Enemy.cpp" />
-		<Unit filename="src/Game.cpp" />
-		<Unit filename="src/GameObject.cpp" />
+		<Unit filename="src/Enemy_Array.cpp" />
+		<Unit filename="src/Game_Utils.cpp" />
 		<Unit filename="src/LTexture.cpp" />
 		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/Text.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
