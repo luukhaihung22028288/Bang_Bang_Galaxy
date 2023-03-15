@@ -5,6 +5,7 @@
 #include "Game_Utils.h"
 #include "LTexture.h"
 #include "Bullet.h"
+#include "Player.h"
 #define ENEMY_WIDTH 120
 #define ENEMY_HEIGHT 120
 
@@ -29,13 +30,17 @@ class Enemy:public LTexture
 
     //bullet
     bool canspawnbullet();
-    void MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen);
+    void MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spaceship);
 
 
     //movement
     void set_x_speed(const float &xSpeed) {x_speed=xSpeed;}
     void set_y_speed(const float &ySpeed) {y_speed=ySpeed;}
     void MoveThreat();
+
+    void rotate_angle();
+   void set_angle_rotate_speed(const double& angleSpeed) {angle_rotate_speed=angleSpeed;}
+   void set_angle(const double& angle_) {angle=angle_;}
 
     //texture
     bool LoadImg(string path, SDL_Renderer* screen);
@@ -47,13 +52,17 @@ class Enemy:public LTexture
     int get_heslth() const {return health;}
     int get_score() const {return score;}
 
-
+    void set_type_threat(const double type_) {type=type_;}
+    double get_type_threat() const {return type;}
 
     private:
     double x_pos;
     double y_pos;
     double x_speed;
     double y_speed;
+
+    double angle;
+    double angle_rotate_speed;
 
 
     int width_frame;
@@ -62,8 +71,9 @@ class Enemy:public LTexture
 
     double y_limit;
     int health;
-     int score;
+    int score;
     int delay_shoot_time;
+    double type;
 
 
     unsigned long long CurrentTime;

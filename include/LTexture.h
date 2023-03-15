@@ -29,9 +29,14 @@ class LTexture
     void MoveBackGround(SDL_Renderer* screen,const SDL_Rect* clip=NULL);
     void Render(SDL_Renderer* screen,const SDL_Rect* clip=NULL);
     void free();
-protected:
+    //frame
+    int get_width_frame() const {return width_frame;}
+    int get_height_frame() const {return height_frame;}
+    protected:
     SDL_Texture* p_texture;
     SDL_Rect Rect;
+    int width_frame;
+    int height_frame;
 };
 
 #endif // LTEXTURE_H

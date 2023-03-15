@@ -18,7 +18,9 @@ class Bullet:public LTexture
 
     void set_x_speed(const double& xSpeed) {x_speed=xSpeed;}
     void set_y_speed(const double& ySpeed) {y_speed=ySpeed;}
-   // void set_angle(const double& angle_) {angle=angle_;}
+
+
+    void set_angle(const double& angle_) {angle=angle_;}
     //void set_type(const int& type_) {type=type_;}
     void set_starting_point(const double& start) {starting_point=start;}
 
@@ -45,7 +47,9 @@ class Bullet:public LTexture
     double y_speed;
 
 
-    //double angle;
+    double angle;
+
+
     double starting_point;
 
     bool is_move;

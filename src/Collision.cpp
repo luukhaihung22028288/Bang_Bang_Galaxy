@@ -13,13 +13,23 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
 
             if(p_enemy->canspawnbullet()==true)
             {
-            p_enemy->MakeBullet(Bullet_List,screen);
+            p_enemy->MakeBullet(Bullet_List,screen,spaceship);
             }
             SDL_Rect spaceshipRect=spaceship.GetHitBox();
             if(p_enemy!=NULL)
             {
                 SDL_Rect ThreatRect=p_enemy->GetRect();
                 bool Threat_to_Spaceship=CheckCollision(spaceshipRect,ThreatRect);
+                if(Threat_to_Spaceship)
+                {
+                    spaceship.got_hit();
+                    spaceship.SetRect(SCREEN_WIDTH/2,SCREEN_HEIGHT-100);
+                    Enemy_List.erase(Enemy_List.begin()+i);
+                    if(spaceship.get_life()==0)
+                    {
+
+                    }
+                }
             }
         }
     }
@@ -35,7 +45,8 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
         bool ThreatBullet_to_spaceship=CheckCollision(BulletRect,Main_Rect);
         if(ThreatBullet_to_spaceship)
             {
-                  Bullet_List.erase(Bullet_List.begin()+i);
+                spaceship.got_hit();
+                Bullet_List.erase(Bullet_List.begin()+i);
             }
         if(p_bullet->get_is_move()==true)
             {

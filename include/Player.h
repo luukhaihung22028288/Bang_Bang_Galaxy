@@ -32,20 +32,25 @@ class Player:public LTexture
         void HandleBullet(SDL_Renderer* des);
         void SpawnBullet(SDL_Renderer* screen);
         void RemoveBullet(const int &index);
-        //frame
-        int get_width_frame() const {return width_frame;}
-        int get_height_frame() const {return height_frame;}
 
 
+        void got_hit()
+        {
+            if(life>0)
+            {
+                life--;
+            }
+        }
 
+        int get_life() {return life;}
     private:
         int x_pos;
         int y_pos;
-        int width_frame;
-        int height_frame;
+
         vector<Bullet*> p_bullet_list;
         bool canspawnbullet;
         bool input_mouse;
+        int life;
 
         unsigned long long CurrentTime;
         unsigned long long LastTime;

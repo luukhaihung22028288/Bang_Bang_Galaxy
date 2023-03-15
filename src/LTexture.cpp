@@ -21,7 +21,7 @@ bool LTexture::LoadTexture(string path,SDL_Renderer* screen)
     if(load_surface !=NULL)
     {
         SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 0, 0xFF, 0xFF ) );
-        //SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 255,255,255 ) );
+        SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 255,255,255 ) );
         new_texture=SDL_CreateTextureFromSurface(screen, load_surface);
         if(new_texture!=NULL)
         {
@@ -30,6 +30,8 @@ bool LTexture::LoadTexture(string path,SDL_Renderer* screen)
         }
         SDL_FreeSurface(load_surface);
     }
+    width_frame=Rect.w;
+    height_frame=Rect.h;
     p_texture=new_texture;
     return p_texture!=NULL;
 }

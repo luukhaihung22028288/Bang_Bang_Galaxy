@@ -8,6 +8,7 @@
 
 
 LTexture m_Background;
+LTexture Heart[3];
 
 Player spaceship ;
 
@@ -16,9 +17,9 @@ TTF_Font* general_font=NULL;
 
 Text currentscore;
 Text numberofcurrentscore;
+Text Life;
 
-vector<Enemy*> Enemy_List;
-vector<Bullet*> Bullet_List;
+;
 bool init()
 {
      bool success=true;
@@ -98,6 +99,8 @@ void close()
 
 int main(int argc, char* argv[])
 {
+    vector<Enemy*> Enemy_List;
+    vector<Bullet*> Bullet_List;
      int score=0;
     int wave=0;
     if(init()==false)
@@ -105,17 +108,27 @@ int main(int argc, char* argv[])
         return 0;
     }
 
+    for(int i=0;i<3;i++)
+    {
+        Heart[i].LoadTexture("heart_icon.png",m_Renderer);
+        Heart[i].SetRect(SCREEN_WIDTH-25-Heart[i].get_width_frame()*2-32*(i-1),Heart[i]. get_height_frame());
+    }
     m_Background.LoadTexture( "background.png" ,m_Renderer);
+
     spaceship.LoadImg("rocket.png",m_Renderer);
-    GenerateEnemy(Enemy_List,m_Renderer);
 
     currentscore.SetColor(Text::RED_COLOR);
     numberofcurrentscore.SetColor(Text::WHITE_COLOR);
+    Life.SetColor(Text::RED_COLOR);
 
     string str_currentscore="SCORE";
+    string str_life="HEART";
+
     currentscore.Set_Text(str_currentscore);
     currentscore.LoadFromRenderText(general_font,m_Renderer);
 
+    Life.Set_Text(str_life);
+    Life.LoadFromRenderText(general_font,m_Renderer);
 
     //Main loop flag
     bool quit = false;
@@ -141,9 +154,10 @@ int main(int argc, char* argv[])
             SDL_RenderClear( m_Renderer );
 
             SDL_ShowCursor(SDL_DISABLE);
-
-
             m_Background.MoveBackGround(m_Renderer,NULL);
+            GenerateEnemy(Enemy_List,m_Renderer,wave);
+
+
 
 
             spaceship.Show(m_Renderer,NULL);
@@ -154,10 +168,16 @@ int main(int argc, char* argv[])
 
 
             currentscore.RenderText(m_Renderer,10,10);
+            Life.RenderText(m_Renderer,SCREEN_WIDTH-105,10);
             numberofcurrentscore.Set_Text(number_to_string(score));
             numberofcurrentscore.LoadFromRenderText(general_font,m_Renderer);
             numberofcurrentscore.RenderText(m_Renderer,10,35);
 
+
+            for(int i=0;i<spaceship.get_life();i++)
+            {
+                    Heart[i].Render(m_Renderer);
+            }
 
             SDL_RenderPresent(m_Renderer);
    }

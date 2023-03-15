@@ -5,7 +5,8 @@ Bullet::Bullet()
     x_speed=0;
     y_speed=0;
     is_move=false;
-    //angle=90;
+    angle=90;
+
     //type=1;
     starting_point=0;
 }
@@ -29,18 +30,18 @@ void Bullet::HandleMove(const int &x_border,const int &y_border)
 
 void Bullet::HandleEnemyMove()
 {
-    y_pos+=y_speed;
+    x_pos+=x_speed*cos(angle*PI/180);
+    y_pos+=y_speed*sin(angle*PI/180);
     if(y_pos>SCREEN_HEIGHT)
     {
-
-
     is_move=false;
     }
-     Rect.x=x_pos;
+    Rect.x=x_pos;
     Rect.y=y_pos;
 
 
 }
+
 
 
 

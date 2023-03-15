@@ -8,6 +8,10 @@ Player::Player()
     x_pos = SCREEN_WIDTH/2;
     y_pos = SCREEN_HEIGHT/2;
 
+    life=3;
+    canspawnbullet=0;
+    CurrentTime=0;
+    LastTime=0;
 
 }
 

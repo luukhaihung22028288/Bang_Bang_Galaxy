@@ -16,7 +16,7 @@ using namespace std;
 
 static const int SCREEN_WIDTH = 800;
 static const int SCREEN_HEIGHT = 720;
-
+const double PI =3.141592653589793238462643383279;
 
 bool CheckCollision(const SDL_Rect &object1,const SDL_Rect &object2);
 
