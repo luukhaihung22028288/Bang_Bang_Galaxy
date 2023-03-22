@@ -186,9 +186,10 @@
 	"Player.h"
 	"Enemy.h"
 
-1678811850 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\main.cpp
+1679413050 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\main.cpp
 	"LTexture.h"
 	"Game_Utils.h"
+	"Menu.h"
 	"Player.h"
 	"Enemy.h"
 	"Enemy_Array.h"
@@ -198,12 +199,12 @@
 1678708075 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\ltexture.h
 	"Game_Utils.h"
 
-1678709395 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\player.h
+1679411533 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\player.h
 	"Game_Utils.h"
 	"LTexture.h"
 	"Bullet.h"
 
-1678818647 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\bullet.h
+1678872664 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\bullet.h
 	"LTexture.h"
 	"Game_Utils.h"
 
@@ -213,40 +214,42 @@
 	"Bullet.h"
 	"Player.h"
 
-1678818659 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\bullet.cpp
+1678872743 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\bullet.cpp
 	"Bullet.h"
 
-1678820314 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\enemy.cpp
+1678873091 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\enemy.cpp
 	"Enemy.h"
 
-1678715166 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\ltexture.cpp
+1679136605 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\ltexture.cpp
 	"LTexture.h"
 
-1678708748 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\player.cpp
+1679215966 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\player.cpp
 	"Player.h"
 
-1678814148 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\collision.cpp
+1679276478 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\collision.cpp
 	"Collision.h"
 
-1678634431 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\collision.h
+1679239580 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\collision.h
 	"Enemy.h"
 	"Player.h"
 	"Bullet.h"
 
-1678813660 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\game_utils.h
+1679410884 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\game_utils.h
+	<cstdlib>
 	<iostream>
-	<fstream>
-	<SDL.h>
+	<ctime>
 	<vector>
 	<iomanip>
 	<sstream>
+	<fstream>
 	<cmath>
 	<string>
+	<SDL.h>
 	<SDL_image.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 
-1678632843 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\game_utils.cpp
+1679413091 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\game_utils.cpp
 	"Game_Utils.h"
 
 1678811733 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\enemy_array.cpp
@@ -256,9 +259,19 @@
 	"Enemy.h"
 	"Game_Utils.h"
 
-1678631366 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\text.cpp
+1679412418 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\text.cpp
 	"Text.h"
 
-1678631303 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\text.h
+1679412283 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\text.h
 	"Game_Utils.h"
+
+1679275298 source:c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\src\menu.cpp
+	"Menu.h"
+
+1679274439 c:\users\chaka\onedrive\máy tính\sdl2\gameproject_v0.4\include\menu.h
+	"LTexture.h"
+	"Game_Utils.h"
+	"Enemy.h"
+	"Player.h"
+	"Bullet.h"
 

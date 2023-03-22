@@ -30,7 +30,7 @@ class Player:public LTexture
 
         vector<Bullet*> get_bullet_list() const {return p_bullet_list;}
         void HandleBullet(SDL_Renderer* des);
-        void SpawnBullet(SDL_Renderer* screen);
+        void SpawnBullet(SDL_Renderer* screen,Mix_Chunk* shot_sound);
         void RemoveBullet(const int &index);
 
 
@@ -43,6 +43,7 @@ class Player:public LTexture
         }
 
         int get_life() {return life;}
+        void Reset();
     private:
         int x_pos;
         int y_pos;
@@ -51,6 +52,7 @@ class Player:public LTexture
         bool canspawnbullet;
         bool input_mouse;
         int life;
+
 
         unsigned long long CurrentTime;
         unsigned long long LastTime;

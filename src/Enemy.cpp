@@ -106,9 +106,9 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         Bullet*p_bullet=new Bullet();
         p_bullet->LoadTexture("BulletThreat2.png",screen);
         p_bullet->set_is_move(true);
-        p_bullet->set_angle(90);
-        p_bullet->set_x_speed(2);
-        p_bullet->set_y_speed(10);
+        p_bullet->set_angle_random();
+        p_bullet->set_x_speed(5);
+        p_bullet->set_y_speed(5);
         p_bullet->set_pos(x_pos+width_frame/2-(p_bullet->GetRect().w)/2,y_pos+24);
         bullet.push_back(p_bullet);
     }

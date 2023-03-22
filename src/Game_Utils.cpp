@@ -13,8 +13,51 @@ bool CheckCollision(const SDL_Rect& object1, const SDL_Rect& object2)
 string number_to_string(int number)
 {
     stringstream ss;
-    ss << setw(5) << setfill('0') << number;
+    ss << setw(6) << setfill('0') << number;
     string val_score;
     ss >> val_score;
     return val_score;
 }
+
+string number_to_string_1(int number)
+{
+    stringstream ss;
+    ss << setw(1) << setfill('0') << number;
+    string val_score;
+    ss >> val_score;
+    return val_score;
+}
+
+void UpdateHighScore(int score)
+{
+    ofstream file("highscore.txt");
+    if (!file.is_open())
+    {
+        cout << "Error, file is not opened.\n";
+    }
+    if(file.is_open())
+    {
+    	file << score;
+	}
+	file.close();
+}
+
+int HighScore()
+{
+    int highscore;
+    ifstream file("highscore.txt");
+    if (!file.is_open())
+    {
+        cout << "Error, file is not opened.\n";
+    }
+    if(file.is_open())
+    {
+    	int n;
+    	file >> n;
+    	highscore=n;
+	}
+	file.close();
+	return highscore;
+
+}
+

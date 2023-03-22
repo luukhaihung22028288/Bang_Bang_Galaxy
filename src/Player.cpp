@@ -8,6 +8,7 @@ Player::Player()
     x_pos = SCREEN_WIDTH/2;
     y_pos = SCREEN_HEIGHT/2;
 
+
     life=3;
     canspawnbullet=0;
     CurrentTime=0;
@@ -45,10 +46,10 @@ void Player::Show(SDL_Renderer* des,const SDL_Rect* clip)
 SDL_Rect Player::GetHitBox()
 {
     SDL_Rect hit_box;
-    hit_box.x=Rect.x;
-    hit_box.y=Rect.y;
-    hit_box.w=width_frame;
-    hit_box.h=height_frame;
+    hit_box.x=Rect.x+width_frame/4;
+    hit_box.y=Rect.y+height_frame/4;
+    hit_box.w=width_frame/2;
+    hit_box.h=height_frame/2;
     return hit_box;
 }
 
@@ -77,15 +78,17 @@ void Player::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
     }
 }
 
-void Player::SpawnBullet(SDL_Renderer* screen)
+void Player::SpawnBullet(SDL_Renderer* screen,Mix_Chunk* shot_sound)
 {
     CurrentTime=SDL_GetTicks();
     if(canspawnbullet &&CurrentTime>LastTime+200)
     {
         Bullet* p_bullet=new Bullet();
         p_bullet->LoadTexture("bullet.png",screen);
+        Mix_PlayChannel(-1,shot_sound,0);
         p_bullet->set_pos(Rect.x+width_frame/2-18,Rect.y+height_frame*0.1);
         //p_bullet->set_angle(angle);
+
         p_bullet->set_x_speed(5);
         p_bullet->set_y_speed(5);
         p_bullet->set_is_move(true);
@@ -132,4 +135,12 @@ void Player::RemoveBullet(const int &index)
             p_bullet=NULL;
         }
     }
+}
+
+void Player::Reset()
+{
+    x_pos=SCREEN_WIDTH/2-32;
+    y_pos=SCREEN_HEIGHT-100;
+    life=3;
+    p_bullet_list.erase(p_bullet_list.begin(),p_bullet_list.begin()+p_bullet_list.size());
 }

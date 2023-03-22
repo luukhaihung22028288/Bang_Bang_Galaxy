@@ -21,6 +21,7 @@ class Bullet:public LTexture
 
 
     void set_angle(const double& angle_) {angle=angle_;}
+    void set_angle_random();
     //void set_type(const int& type_) {type=type_;}
     void set_starting_point(const double& start) {starting_point=start;}
 

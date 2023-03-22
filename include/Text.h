@@ -11,7 +11,7 @@ class Text
     {
         WHITE_COLOR=0,
         RED_COLOR=1,
-        BLACK_COLOR=2,
+        YELLOW_COLOR=2,
     };
 
     bool LoadFromRenderText(TTF_Font* font,SDL_Renderer* screen);

@@ -26,7 +26,7 @@ void Text::SetColor(const int& type)
     }
     else
     {
-        color={0,0,0};
+        color={255,242,0};
     }
     text_color_=color;
 }

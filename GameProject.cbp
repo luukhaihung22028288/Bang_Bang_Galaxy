@@ -40,6 +40,7 @@
 		<Unit filename="include/Enemy_Array.h" />
 		<Unit filename="include/Game_Utils.h" />
 		<Unit filename="include/LTexture.h" />
+		<Unit filename="include/Menu.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/Text.h" />
 		<Unit filename="main.cpp" />
@@ -49,6 +50,7 @@
 		<Unit filename="src/Enemy_Array.cpp" />
 		<Unit filename="src/Game_Utils.cpp" />
 		<Unit filename="src/LTexture.cpp" />
+		<Unit filename="src/Menu.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/Text.cpp" />
 		<Extensions>

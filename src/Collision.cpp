@@ -1,7 +1,7 @@
 #include "Collision.h"
 
 
-void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,SDL_Renderer* screen)
+void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,bool &GameOver,SDL_Renderer* screen)
 {
     for(int i=0;i<Enemy_List.size();i++)
     {
@@ -27,7 +27,7 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
                     Enemy_List.erase(Enemy_List.begin()+i);
                     if(spaceship.get_life()==0)
                     {
-
+                        GameOver=true;
                     }
                 }
             }
@@ -47,6 +47,10 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
             {
                 spaceship.got_hit();
                 Bullet_List.erase(Bullet_List.begin()+i);
+                if(spaceship.get_life()==0)
+                {
+                    GameOver=true;
+                }
             }
         if(p_bullet->get_is_move()==true)
             {

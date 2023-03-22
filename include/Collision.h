@@ -6,6 +6,6 @@
 #include "Player.h"
 #include "Bullet.h"
 
-void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List,int &current_score,SDL_Renderer* screen);
+void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List,int &current_score,bool &GameOver,SDL_Renderer* screen);
 
 #endif // COLLISION_H
