@@ -8,7 +8,7 @@ Player::Player()
     x_pos = SCREEN_WIDTH/2;
     y_pos = SCREEN_HEIGHT/2;
 
-
+    type=0;
     life=3;
     canspawnbullet=0;
     CurrentTime=0;
@@ -78,22 +78,66 @@ void Player::HandleInputAction(SDL_Event events, SDL_Renderer* screen)
     }
 }
 
-void Player::SpawnBullet(SDL_Renderer* screen,Mix_Chunk* shot_sound)
+void Player::SpawnBullet(SDL_Renderer* screen)
 {
     CurrentTime=SDL_GetTicks();
-    if(canspawnbullet &&CurrentTime>LastTime+200)
+    if(get_type()==FLAME)
     {
-        Bullet* p_bullet=new Bullet();
-        p_bullet->LoadTexture("bullet.png",screen);
-        Mix_PlayChannel(-1,shot_sound,0);
-        p_bullet->set_pos(Rect.x+width_frame/2-18,Rect.y+height_frame*0.1);
-        //p_bullet->set_angle(angle);
+        if(canspawnbullet &&CurrentTime>LastTime+200)
+        {
+            Bullet* p_bullet1=new Bullet();
+            p_bullet1->LoadTexture("img//bullet1.png",screen);
+            p_bullet1->set_pos(Rect.x+width_frame/2-9,Rect.y-width_frame/2);
+            //p_bullet->set_angle(angle);
+            p_bullet1->set_x_speed(5);
+            p_bullet1->set_y_speed(5);
+            p_bullet1->set_is_move(true);
+            p_bullet_list.push_back(p_bullet1);
 
-        p_bullet->set_x_speed(5);
-        p_bullet->set_y_speed(5);
-        p_bullet->set_is_move(true);
-        p_bullet_list.push_back(p_bullet);
-        LastTime=CurrentTime;
+            LastTime=CurrentTime;
+        }
+    }
+
+    if(get_type()==FLASH)
+    {
+        if(canspawnbullet &&CurrentTime>LastTime+100)
+        {
+            Bullet* p_bullet1=new Bullet();
+            p_bullet1->LoadTexture("img//bullet2.png",screen);
+            p_bullet1->set_pos(Rect.x+2,Rect.y-width_frame/2);
+            //p_bullet->set_angle(angle);
+            p_bullet1->set_x_speed(6);
+            p_bullet1->set_y_speed(6);
+            p_bullet1->set_is_move(true);
+            p_bullet_list.push_back(p_bullet1);
+
+            Bullet* p_bullet2=new Bullet();
+            p_bullet2->LoadTexture("img//bullet2.png",screen);
+            p_bullet2->set_pos(Rect.x+width_frame/2+5,Rect.y-width_frame/2);
+            //p_bullet->set_angle(angle);
+            p_bullet2->set_x_speed(6);
+            p_bullet2->set_y_speed(6);
+            p_bullet2->set_is_move(true);
+            p_bullet_list.push_back(p_bullet2);
+
+            LastTime=CurrentTime;
+        }
+    }
+    if(get_type()==COMMANDER)
+    {
+        if(canspawnbullet &&CurrentTime>LastTime+800)
+        {
+
+            Bullet* p_bullet1=new Bullet();
+            p_bullet1->LoadTexture("img//bullet3.png",screen);
+            p_bullet1->set_pos(Rect.x+width_frame/2-9,Rect.y-width_frame/2-10);
+            p_bullet1->set_x_speed(10);
+            p_bullet1->set_y_speed(10);
+            p_bullet1->set_is_move(true);
+            p_bullet_list.push_back(p_bullet1);
+
+            LastTime=CurrentTime;
+    }
     }
 }
 
@@ -125,9 +169,11 @@ void Player::HandleBullet(SDL_Renderer* des)
 void Player::RemoveBullet(const int &index)
 {
     int n=p_bullet_list.size();
+
     if(n>0 && index<n)
     {
         Bullet*p_bullet=p_bullet_list.at(index);
+
         p_bullet_list.erase(p_bullet_list.begin()+index);
         if(p_bullet)
         {

@@ -1,7 +1,7 @@
 #include "Collision.h"
 
 
-void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,bool &GameOver,SDL_Renderer* screen)
+void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,bool &GameOver,Mix_Chunk* shot_sound,SDL_Renderer* screen)
 {
     for(int i=0;i<Enemy_List.size();i++)
     {
@@ -23,8 +23,21 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
                 if(Threat_to_Spaceship)
                 {
                     spaceship.got_hit();
+                    Mix_PlayChannel(-1,shot_sound,0);
                     spaceship.SetRect(SCREEN_WIDTH/2,SCREEN_HEIGHT-100);
-                    Enemy_List.erase(Enemy_List.begin()+i);
+
+                     p_enemy->got_hit(200);
+                    if(p_enemy->get_heslth()<=0)
+                    {
+                        current_score+=(p_enemy->get_score());
+                        Mix_PlayChannel(-1,shot_sound,0);
+                        Enemy_List.erase(Enemy_List.begin()+i);
+                        if(p_enemy!=NULL)
+                        {
+                            delete p_enemy;
+                            p_enemy=NULL;
+                        }
+                    }
                     if(spaceship.get_life()==0)
                     {
                         GameOver=true;
@@ -46,6 +59,7 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
         if(ThreatBullet_to_spaceship)
             {
                 spaceship.got_hit();
+                 Mix_PlayChannel(-1,shot_sound,0);
                 Bullet_List.erase(Bullet_List.begin()+i);
                 if(spaceship.get_life()==0)
                 {
@@ -82,12 +96,12 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
                     bool SpaceshipBullet_to_Threat=CheckCollision(ThreatRect,BulletRect);
                     if(SpaceshipBullet_to_Threat)
                     {
-                        p_enemy->got_hit();
+                        p_enemy->got_hit(spaceship.get_damage());
                         spaceship.RemoveBullet(i);
-                        if(p_enemy->get_heslth()==0)
+                        if(p_enemy->get_heslth()<=0)
                         {
                             current_score+=(p_enemy->get_score());
-
+                            Mix_PlayChannel(-1,shot_sound,0);
                             Enemy_List.erase(Enemy_List.begin()+j);
                             if(p_enemy!=NULL)
                             {

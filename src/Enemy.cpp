@@ -45,8 +45,8 @@ bool Enemy::LoadImg(string path, SDL_Renderer* screen)
 
 void Enemy::Show(SDL_Renderer* screen,const SDL_Rect* clip)
 {
-    Rect.x=x_pos;
-    Rect.y=y_pos;
+    Rect.x=x_pos+20;
+    Rect.y=y_pos+20;
 
     SDL_Rect RenderQuad={Rect.x,Rect.y,width_frame,height_frame};
 
@@ -104,7 +104,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
     {
         delay_shoot_time=400;
         Bullet*p_bullet=new Bullet();
-        p_bullet->LoadTexture("BulletThreat2.png",screen);
+        p_bullet->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet->set_is_move(true);
         p_bullet->set_angle_random();
         p_bullet->set_x_speed(5);
@@ -120,7 +120,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
 
                 delay_shoot_time=400;
                 Bullet*p_bullet=new Bullet();
-                p_bullet->LoadTexture("BulletThreat2.png",screen);
+                p_bullet->LoadTexture("img//BulletThreat2.png",screen);
                 p_bullet->set_is_move(true);
                 p_bullet->set_angle(0+30*i);
                 p_bullet->set_x_speed(4);
@@ -131,7 +131,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
 
         delay_shoot_time=100;
         Bullet*p_bullet1=new Bullet();
-        p_bullet1->LoadTexture("BulletThreat2.png",screen);
+        p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet1->set_is_move(true);
         p_bullet1->set_angle(angle);
         set_angle_rotate_speed(2);
@@ -142,7 +142,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         bullet.push_back(p_bullet1);
 
         Bullet*p_bullet2=new Bullet();
-        p_bullet2->LoadTexture("BulletThreat2.png",screen);
+        p_bullet2->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet2->set_is_move(true);
         p_bullet2->set_angle(angle+60);
         set_angle_rotate_speed(2);
@@ -153,7 +153,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         bullet.push_back(p_bullet2);
 
         Bullet*p_bullet3=new Bullet();
-        p_bullet3->LoadTexture("BulletThreat2.png",screen);
+        p_bullet3->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet3->set_is_move(true);
         p_bullet3->set_angle(angle+120);
         set_angle_rotate_speed(2);
@@ -164,7 +164,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         bullet.push_back(p_bullet3);
 
         Bullet*p_bullet4=new Bullet();
-        p_bullet4->LoadTexture("BulletThreat2.png",screen);
+        p_bullet4->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet4->set_is_move(true);
         p_bullet4->set_angle(angle+180);
         set_angle_rotate_speed(2);
@@ -176,7 +176,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
 
 
         Bullet*p_bullet5=new Bullet();
-        p_bullet5->LoadTexture("BulletThreat2.png",screen);
+        p_bullet5->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet5->set_is_move(true);
         p_bullet5->set_angle(angle+240);
         set_angle_rotate_speed(2);
@@ -187,7 +187,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         bullet.push_back(p_bullet5);
 
         Bullet*p_bullet6=new Bullet();
-        p_bullet6->LoadTexture("BulletThreat2.png",screen);
+        p_bullet6->LoadTexture("img//BulletThreat2.png",screen);
         p_bullet6->set_is_move(true);
         p_bullet6->set_angle(angle+300);
         set_angle_rotate_speed(2);
@@ -204,13 +204,13 @@ void Enemy::set_stats(SDL_Renderer* screen)
 {
     if(type==1.1)
     {
-        LoadImg("enemy1.png",screen);
+        LoadImg("img//enemy1.png",screen);
         score=100;
         y_speed=2;
     }
     else if(type==2.1)
     {
-        LoadImg("boss.png",screen);
+        LoadImg("img//boss.png",screen);
         y_speed=2;
         score=500;
     }
