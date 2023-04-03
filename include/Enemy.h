@@ -47,7 +47,7 @@ class Enemy:public LTexture
     void Show(SDL_Renderer* des,const SDL_Rect* clip);
 
     //action when die
-    void got_hit() {health--;}
+    void got_hit(const int damage) {health-=damage;}
     int set_health(const int &life) {health=life;}
     int get_heslth() const {return health;}
     int get_score() const {return score;}

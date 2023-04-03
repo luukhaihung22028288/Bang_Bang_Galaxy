@@ -10,7 +10,12 @@
 class Player:public LTexture
 {
     public:
-
+    enum PlayerType
+    {
+        FLAME=0,
+        FLASH=1,
+        COMMANDER=2,
+    };
 
         Player();
         ~Player();
@@ -24,13 +29,14 @@ class Player:public LTexture
         x_pos=x;
         y_pos=y;
         }
+
         SDL_Rect GetHitBox();
         void HandleInputAction(SDL_Event events, SDL_Renderer* screen);
         void move();
 
         vector<Bullet*> get_bullet_list() const {return p_bullet_list;}
         void HandleBullet(SDL_Renderer* des);
-        void SpawnBullet(SDL_Renderer* screen,Mix_Chunk* shot_sound);
+        void SpawnBullet(SDL_Renderer* screen);
         void RemoveBullet(const int &index);
 
 
@@ -42,7 +48,25 @@ class Player:public LTexture
             }
         }
 
-        int get_life() {return life;}
+        int get_life() const {return life;}
+        void set_type(const int type_) {type=type_;}
+        int get_type() const {return type;}
+        int set_damage ()
+        {
+            if(get_type()==FLAME)
+            {
+                damage=20;
+            }
+            else if (get_type()==FLASH)
+            {
+                damage=1;
+            }
+            else if (get_type()==COMMANDER)
+            {
+                damage=20;
+            }
+        }
+        int get_damage() const{return damage;}
         void Reset();
     private:
         int x_pos;
@@ -52,8 +76,8 @@ class Player:public LTexture
         bool canspawnbullet;
         bool input_mouse;
         int life;
-
-
+        int type;
+        int damage;
         unsigned long long CurrentTime;
         unsigned long long LastTime;
         unsigned long long PausedTime;

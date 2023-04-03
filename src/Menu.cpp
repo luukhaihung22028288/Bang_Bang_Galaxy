@@ -54,7 +54,7 @@ void Menu::HandlePlayButton(SDL_Event event,SDL_Renderer* screen,bool &play,bool
 {
 	if(IsInside(event))
 	{
-	    LoadButton("PlayButton2.png",screen);
+	    LoadButton("img//PlayButton2.png",screen);
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
 		    play=true;
@@ -64,7 +64,7 @@ void Menu::HandlePlayButton(SDL_Event event,SDL_Renderer* screen,bool &play,bool
 	}
 	else
 	{
-		LoadButton("PlayButton.png",screen);
+		LoadButton("img//PlayButton.png",screen);
 	}
 }
 
@@ -72,22 +72,23 @@ void Menu::HandleQuitButton(SDL_Event event,SDL_Renderer* screen,bool &Quit)
 {
     if(IsInside(event))
 	{
-	    LoadButton("QuitButton2.png",screen);
+	    LoadButton("img//QuitButton2.png",screen);
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
 		    Quit=!Quit;
+
 		}
 	}
 	else
 	{
-		LoadButton("QuitButton.png",screen);
+		LoadButton("img//QuitButton.png",screen);
 	}
 }
 void Menu::HandleBackButton(SDL_Event event,SDL_Renderer* screen,bool &menu,bool &help)
 {
     if(IsInside(event))
 	{
-	    LoadButton("BackButton2.png",screen);
+	    LoadButton("img//BackButton2.png",screen);
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
 		    menu=true;
@@ -96,7 +97,7 @@ void Menu::HandleBackButton(SDL_Event event,SDL_Renderer* screen,bool &menu,bool
 	}
 	else
 	{
-		LoadButton("BackButton.png",screen);
+		LoadButton("img//BackButton.png",screen);
 	}
 }
 void Menu::HandlePlayAgainButton(SDL_Event event,SDL_Renderer* screen,
@@ -106,7 +107,7 @@ void Menu::HandlePlayAgainButton(SDL_Event event,SDL_Renderer* screen,
 
     if (IsInside(event))
 	{
-	    LoadButton("PlayAgainButton2.png",screen);
+	    LoadButton("img//PlayAgainButton2.png",screen);
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
 		    GameOver=false;
@@ -121,6 +122,6 @@ void Menu::HandlePlayAgainButton(SDL_Event event,SDL_Renderer* screen,
 	}
 	else
 	{
-		LoadButton("PlayAgainButton.png",screen);
+		LoadButton("img//PlayAgainButton.png",screen);
 	}
 }

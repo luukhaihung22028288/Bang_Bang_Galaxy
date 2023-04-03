@@ -19,10 +19,13 @@ TTF_Font* GameOver_font=NULL;
 
 Mix_Chunk* MenuBGM=NULL;
 Mix_Chunk* BGM=NULL;
+Mix_Chunk* GameOverBGM=NULL;
 Mix_Chunk* shot=NULL;
+Mix_Chunk* explosion=NULL;
 
 Text currentscore;
 Text numberofcurrentscore;
+Text Score;
 Text Highscore;
 Text Life;
 Text Wave;
@@ -52,7 +55,7 @@ bool init()
 		}
 
 		//Create window
-		m_Window = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+		m_Window = SDL_CreateWindow( "Bang Bang Galaxy", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( m_Window == NULL )
 		{
 			printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
@@ -93,12 +96,14 @@ bool init()
                 }
                 MenuBGM=Mix_LoadWAV("MenuBGM.wav");
                 BGM=Mix_LoadWAV("BGM.wav");
-                shot=Mix_LoadWAV("SE_shot.wav");
-
+                shot=Mix_LoadWAV("shot.wav");
+                explosion=Mix_LoadWAV("explosion.wav");
+                GameOverBGM=Mix_LoadWAV("GameOverBGM.wav");
 
 			}
 		}
 	}
+
        return success;
 }
 
@@ -114,9 +119,24 @@ void close()
 	m_Window = NULL;
 	m_Renderer = NULL;
 
-    //Quit SDL subsystems
-	IMG_Quit();
-	SDL_Quit();
+	m_Background.free();
+    GameOverUI.free();
+
+    Mix_FreeChunk(BGM);
+    BGM=NULL;
+    Mix_FreeChunk(shot);
+    shot=NULL;
+    Mix_FreeChunk(MenuBGM);
+    MenuBGM=NULL;
+    Mix_FreeChunk(GameOverBGM);
+    GameOverBGM=NULL;
+    Mix_FreeChunk(explosion);
+    explosion=NULL;
+    Mix_Quit();
+    IMG_Quit();
+    SDL_Quit();
+
+
 }
 
 int main(int argc, char* argv[])
@@ -133,18 +153,17 @@ int main(int argc, char* argv[])
 
     for(int i=0;i<3;i++)
     {
-        Heart[i].LoadTexture("heart_icon.png",m_Renderer);
+        Heart[i].LoadTexture("img//heart_icon.png",m_Renderer);
         Heart[i].SetRect(SCREEN_WIDTH-25-Heart[i].get_width_frame()*2-32*(i-1),Heart[i]. get_height_frame());
     }
-    m_Background.LoadTexture( "background.png" ,m_Renderer);
-    MenuUI.LoadTexture("Menu.png",m_Renderer);
-    GameOverUI.LoadTexture("GameOver.png",m_Renderer);
-
-    spaceship.LoadImg("rocket.png",m_Renderer);
-
+    m_Background.LoadTexture( "img//background.png" ,m_Renderer);
+    MenuUI.LoadTexture("img//Menu.png",m_Renderer);
+    GameOverUI.LoadTexture("img//GameOver.png",m_Renderer);
 
     currentscore.SetColor(Text::RED_COLOR);
     numberofcurrentscore.SetColor(Text::WHITE_COLOR);
+    Score.SetColor(Text::YELLOW_COLOR);
+    Highscore.SetColor(Text::YELLOW_COLOR);
     Life.SetColor(Text::RED_COLOR);
     Wave.SetColor(Text::WHITE_COLOR);
     Wave_number.SetColor(Text::WHITE_COLOR);
@@ -165,19 +184,20 @@ int main(int argc, char* argv[])
     Wave.LoadFromRenderText(general_font,m_Renderer);
 
     Mix_VolumeChunk(MenuBGM,MIX_MAX_VOLUME/2);
-    Mix_VolumeChunk(BGM,MIX_MAX_VOLUME/2);
+    Mix_VolumeChunk(BGM,MIX_MAX_VOLUME/3);
     Mix_VolumeChunk(shot,MIX_MAX_VOLUME/2);
+    Mix_VolumeChunk(explosion,MIX_MAX_VOLUME/2);
+    Mix_VolumeChunk(GameOverBGM,MIX_MAX_VOLUME/3);
     //Main loop flag
     bool InMenu=true;
     bool play=false;
-    bool help=false;
-
 
     //Event handler
     SDL_Event g_event;
 
     while(InMenu)
     {
+
         if(!Mix_Playing(1))
         {
             Mix_PlayChannel(1,MenuBGM,-1);
@@ -200,11 +220,26 @@ int main(int argc, char* argv[])
             SDL_RenderPresent(m_Renderer);
 
     }
+    spaceship.set_type(Player::FLAME);
+    if(spaceship.get_type()==Player::FLAME)
+    {
+      spaceship.LoadImg("img//flame.png",m_Renderer);
+    }
+    else if(spaceship.get_type()==Player::FLASH)
+    {
+      spaceship.LoadImg("img//flash.png",m_Renderer);
+    }
+    else if(spaceship.get_type()==Player::COMMANDER)
+    {
+      spaceship.LoadImg("img//commander.png",m_Renderer);
+    }
+    spaceship.set_damage();
     SDL_WarpMouseInWindow(m_Window,SCREEN_WIDTH/2-32,SCREEN_HEIGHT-100);
-    bool paused=false;
+
     bool GameOver=false;
     while(play)
     {
+
         Mix_HaltChannel(1);
         if(!Mix_Playing(2))
         {
@@ -212,34 +247,34 @@ int main(int argc, char* argv[])
         }
         if(!GameOver)
         {
+            Mix_HaltChannel(3);
             while(SDL_PollEvent(&g_event)!=0)
-            {
-                if(g_event.type==SDL_QUIT)
                 {
-                    play=false;
+
+                    if(g_event.type==SDL_QUIT)
+                    {
+                        play=false;
+                    }
+
+                    spaceship.HandleInputAction(g_event,m_Renderer);
                 }
-                spaceship.HandleInputAction(g_event,m_Renderer);
-            }
 
             //Clear screen
-
             SDL_SetRenderDrawColor( m_Renderer, 0xFF, 0xFF, 0xFF, 0xFF );
             SDL_RenderClear( m_Renderer );
 
             SDL_ShowCursor(SDL_DISABLE);
+
             m_Background.MoveBackGround(m_Renderer,NULL);
             GenerateEnemy(Enemy_List,m_Renderer,wave);
-
-
             spaceship.Show(m_Renderer,NULL);
-            spaceship.SpawnBullet(m_Renderer,shot);
+            spaceship.SpawnBullet(m_Renderer);
             spaceship.HandleBullet(m_Renderer);
 
-            Collision(Enemy_List,spaceship,Bullet_List,score,GameOver,m_Renderer);
-
+            Collision(Enemy_List,spaceship,Bullet_List,score,GameOver,explosion,m_Renderer);
 
             currentscore.RenderText(m_Renderer,10,10);
-            Life.RenderText(m_Renderer,SCREEN_WIDTH-105,10);
+            Life.RenderText(m_Renderer,SCREEN_WIDTH-150,10);
             Wave.RenderText(m_Renderer,SCREEN_WIDTH/2-50,10);
             Wave_number.Set_Text(number_to_string_1(wave));
             Wave_number.LoadFromRenderText(general_font,m_Renderer);
@@ -247,8 +282,6 @@ int main(int argc, char* argv[])
             numberofcurrentscore.Set_Text(number_to_string(score));
             numberofcurrentscore.LoadFromRenderText(general_font,m_Renderer);
             numberofcurrentscore.RenderText(m_Renderer,10,35);
-
-
             for(int i=0;i<spaceship.get_life();i++)
             {
                     Heart[i].Render(m_Renderer);
@@ -256,9 +289,14 @@ int main(int argc, char* argv[])
 
             SDL_RenderPresent(m_Renderer);
         }
+
         else
         {
             Mix_HaltChannel(2);
+            if(!Mix_Playing(3))
+            {
+                Mix_PlayChannel(3,GameOverBGM,-1);
+            }
             SDL_ShowCursor(SDL_ENABLE);
             GameOverUI.Render(m_Renderer);
             if(score>HighScore())
@@ -275,11 +313,10 @@ int main(int argc, char* argv[])
                  QuitButton.HandleQuitButton(g_event,m_Renderer,play);
                  PlayAgainButton.HandlePlayAgainButton( g_event,m_Renderer,Enemy_List,spaceship,Bullet_List,wave,score,GameOver);
             }
-            numberofcurrentscore.SetColor(Text::YELLOW_COLOR);
-            numberofcurrentscore.Set_Text(number_to_string(score));
-            numberofcurrentscore.LoadFromRenderText(GameOver_font,m_Renderer);
-            numberofcurrentscore.RenderText(m_Renderer,300,375);
-            Highscore.SetColor(Text::YELLOW_COLOR);
+
+            Score.Set_Text(number_to_string(score));
+            Score.LoadFromRenderText(GameOver_font,m_Renderer);
+            Score.RenderText(m_Renderer,300,375);
             Highscore.Set_Text(number_to_string(HighScore()));
             Highscore.LoadFromRenderText(GameOver_font,m_Renderer);
             Highscore.RenderText(m_Renderer,445,478);
@@ -292,6 +329,9 @@ int main(int argc, char* argv[])
         }
    }
     //Free resources and close SDL
+
+    Enemy_List.erase(Enemy_List.begin(),Enemy_List.begin()+Enemy_List.size());
+    Bullet_List.erase(Bullet_List.begin(),Bullet_List.begin()+Bullet_List.size());
 	close();
 
     return 0;

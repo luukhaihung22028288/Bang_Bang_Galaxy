@@ -38,6 +38,8 @@ class Bullet:public LTexture
 
     void HandleMove(const int &x_border,const int &y_border);
     void HandleEnemyMove();
+    void set_damaged(const int damage_){damage=damage_;}
+    int take_damaged() {return damage;}
 
     private:
 
@@ -54,6 +56,7 @@ class Bullet:public LTexture
     double starting_point;
 
     bool is_move;
+    int damage;
     //int type;
 };
 
