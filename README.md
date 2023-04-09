@@ -5,7 +5,7 @@ Made by Luu Khai Hung
 ## HOW TO PLAY
 Using mouse to move and shoot.
 ## INSTALL
-### REQUIREMENT
+### Requirement
 Code::Blocks(recommend) // Microsoft visual studio...  
 SDL2 library(SDL, SDL_image, SDL_ttf, SDL_mixer)  
 ### Links
@@ -17,3 +17,6 @@ Code::Blocks: http://www.codeblocks.org/downloads/binaries/
 ### Set up
 Set up SDL: https://www.youtube.com/watch?v=kxi0TMXEG3g&t=1s    
 Set up SDL_image,...: https://www.youtube.com/watch?v=DoRyZaFZekQ&t=1178s  
+## REFERENCE SOURCES
+Lazy Foo' : https://lazyfoo.net/tutorials/SDL/index.php
+Phát triển phần mềm 123: https://phattrienphanmem123az.com/lap-trinh-game-cpp
