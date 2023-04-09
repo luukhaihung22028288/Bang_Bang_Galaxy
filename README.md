@@ -6,7 +6,7 @@ Made by Luu Khai Hung
 Using mouse to move and shoot.
 ## INSTALL
 ### Requirement
-Code::Blocks(recommend) // Microsoft visual studio...  
+Code::Blocks (recommend) // Microsoft visual studio...  
 SDL2 library(SDL, SDL_image, SDL_ttf, SDL_mixer)  
 ### Links
 SDL2 : [https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2](https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2)  
