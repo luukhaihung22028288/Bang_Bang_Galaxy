@@ -11,3 +11,5 @@ SDL2 library(SDL, SDL_image, SDL_ttf, SDL_mixer)
 SDL2 : [https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2](https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2)  
 SDL_image: [https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.2](https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.2)  
 SDL_mixer: [https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3](https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3)  
+SDL_ttf: [https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.]](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.20.2)  
+
