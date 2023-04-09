@@ -13,4 +13,7 @@ SDL2 : [https://github.com/libsdl-org/SDL/releases/tag/release-2.26.2](https://g
 SDL_image: [https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.2](https://github.com/libsdl-org/SDL_image/releases/tag/release-2.6.2)  
 SDL_mixer: [https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3](https://github.com/libsdl-org/SDL_mixer/releases/tag/release-2.6.3)  
 SDL_ttf: [https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.]](https://github.com/libsdl-org/SDL_ttf/releases/tag/release-2.20.2)  
-Project:
+Code::Blocks: http://www.codeblocks.org/downloads/binaries/  
+### Set up
+Set up SDL: https://www.youtube.com/watch?v=kxi0TMXEG3g&t=1s    
+Set up SDL_image,...: https://www.youtube.com/watch?v=DoRyZaFZekQ&t=1178s  
