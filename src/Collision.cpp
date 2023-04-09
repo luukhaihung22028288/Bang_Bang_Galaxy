@@ -1,8 +1,11 @@
 #include "Collision.h"
 
-
+long long CurrentTime;
+long long LastTime;
 void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,bool &GameOver,Mix_Chunk* shot_sound,SDL_Renderer* screen)
 {
+
+    CurrentTime=SDL_GetTicks();
     for(int i=0;i<Enemy_List.size();i++)
     {
         Enemy *p_enemy=Enemy_List.at(i);
@@ -56,15 +59,16 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
             SDL_Rect Main_Rect=spaceship.GetHitBox();
 
         bool ThreatBullet_to_spaceship=CheckCollision(BulletRect,Main_Rect);
-        if(ThreatBullet_to_spaceship)
+        if(ThreatBullet_to_spaceship && CurrentTime>=LastTime+2000)
             {
                 spaceship.got_hit();
-                 Mix_PlayChannel(-1,shot_sound,0);
+               // Mix_PlayChannel(-1,shot_sound,0);
                 Bullet_List.erase(Bullet_List.begin()+i);
                 if(spaceship.get_life()==0)
                 {
                     GameOver=true;
                 }
+                LastTime=CurrentTime;
             }
         if(p_bullet->get_is_move()==true)
             {

@@ -61,3 +61,10 @@ int HighScore()
 
 }
 
+int RandomNumber(int min, int max)
+{
+   int randomNumber = rand() % (max - min + 1)+min ;
+    return randomNumber;
+
+}
+

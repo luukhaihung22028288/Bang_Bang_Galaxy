@@ -14,7 +14,7 @@ class Player:public LTexture
     {
         FLAME=0,
         FLASH=1,
-        COMMANDER=2,
+        GUN=2,
     };
 
         Player();
@@ -51,7 +51,7 @@ class Player:public LTexture
         int get_life() const {return life;}
         void set_type(const int type_) {type=type_;}
         int get_type() const {return type;}
-        int set_damage ()
+        void set_damage ()
         {
             if(get_type()==FLAME)
             {
@@ -59,11 +59,11 @@ class Player:public LTexture
             }
             else if (get_type()==FLASH)
             {
-                damage=1;
+                damage=4;
             }
-            else if (get_type()==COMMANDER)
+            else if (get_type()==GUN)
             {
-                damage=20;
+                damage=25;
             }
         }
         int get_damage() const{return damage;}

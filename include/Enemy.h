@@ -37,8 +37,10 @@ class Enemy:public LTexture
     void set_x_speed(const float &xSpeed) {x_speed=xSpeed;}
     void set_y_speed(const float &ySpeed) {y_speed=ySpeed;}
     void MoveThreat();
+    void MoveDead();
 
-    void rotate_angle();
+    void rotate_angle_right();
+    void rotate_angle_left();
    void set_angle_rotate_speed(const double& angleSpeed) {angle_rotate_speed=angleSpeed;}
    void set_angle(const double& angle_) {angle=angle_;}
 
@@ -48,7 +50,7 @@ class Enemy:public LTexture
 
     //action when die
     void got_hit(const int damage) {health-=damage;}
-    int set_health(const int &life) {health=life;}
+    void set_health(const int &life) {health=life;}
     int get_heslth() const {return health;}
     int get_score() const {return score;}
 
@@ -69,7 +71,7 @@ class Enemy:public LTexture
     int height_frame;
 
 
-    double y_limit;
+    int y_limit;
     int health;
     int score;
     int delay_shoot_time;
@@ -78,6 +80,8 @@ class Enemy:public LTexture
 
     unsigned long long CurrentTime;
     unsigned long long LastTime;
+
+
 
 
 

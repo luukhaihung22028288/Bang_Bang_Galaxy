@@ -20,8 +20,8 @@ bool LTexture::LoadTexture(string path,SDL_Renderer* screen)
     SDL_Surface* load_surface=IMG_Load(path.c_str());
     if(load_surface !=NULL)
     {
-        SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 0, 0xFF, 0xFF ) );
-        SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 255,255,255 ) );
+
+        SDL_SetColorKey( load_surface, SDL_TRUE, SDL_MapRGB( load_surface->format, 0,255,255 ) );
         new_texture=SDL_CreateTextureFromSurface(screen, load_surface);
         if(new_texture!=NULL)
         {

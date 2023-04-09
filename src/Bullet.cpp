@@ -43,7 +43,6 @@ void Bullet::HandleEnemyMove()
 }
 void Bullet::set_angle_random()
 {
-
     double random_angle=rand()%181;
     angle=random_angle;
 }

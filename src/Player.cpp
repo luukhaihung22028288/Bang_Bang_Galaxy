@@ -46,10 +46,10 @@ void Player::Show(SDL_Renderer* des,const SDL_Rect* clip)
 SDL_Rect Player::GetHitBox()
 {
     SDL_Rect hit_box;
-    hit_box.x=Rect.x+width_frame/4;
-    hit_box.y=Rect.y+height_frame/4;
-    hit_box.w=width_frame/2;
-    hit_box.h=height_frame/2;
+    hit_box.x=Rect.x+9*width_frame/20;
+    hit_box.y=Rect.y+9*height_frame/20;
+    hit_box.w=width_frame/10;
+    hit_box.h=height_frame/10;
     return hit_box;
 }
 
@@ -123,7 +123,7 @@ void Player::SpawnBullet(SDL_Renderer* screen)
             LastTime=CurrentTime;
         }
     }
-    if(get_type()==COMMANDER)
+    if(get_type()==GUN)
     {
         if(canspawnbullet &&CurrentTime>LastTime+800)
         {

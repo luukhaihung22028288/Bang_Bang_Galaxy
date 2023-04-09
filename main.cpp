@@ -12,6 +12,7 @@ LTexture m_Background;
 LTexture Heart[3];
 LTexture MenuUI;
 LTexture GameOverUI;
+LTexture ChooseUI;
 Player spaceship ;
 
 TTF_Font* general_font=NULL;
@@ -32,6 +33,9 @@ Text Wave;
 Text Wave_number;
 Menu PlayButton;
 Menu QuitButton;
+Menu Choose_Flame;
+Menu Choose_Flash;
+Menu Choose_Gun;
 Menu BackButton;
 Menu PlayAgainButton;
 
@@ -148,6 +152,7 @@ int main(int argc, char* argv[])
     int wave=0;
     if(init()==false)
     {
+        cout << "SDL init failed" << endl;
         return 0;
     }
 
@@ -156,9 +161,11 @@ int main(int argc, char* argv[])
         Heart[i].LoadTexture("img//heart_icon.png",m_Renderer);
         Heart[i].SetRect(SCREEN_WIDTH-25-Heart[i].get_width_frame()*2-32*(i-1),Heart[i]. get_height_frame());
     }
-    m_Background.LoadTexture( "img//background.png" ,m_Renderer);
+    m_Background.LoadTexture( "img//background2.png" ,m_Renderer);
     MenuUI.LoadTexture("img//Menu.png",m_Renderer);
     GameOverUI.LoadTexture("img//GameOver.png",m_Renderer);
+    ChooseUI.LoadTexture("img//Choose.png",m_Renderer);
+
 
     currentscore.SetColor(Text::RED_COLOR);
     numberofcurrentscore.SetColor(Text::WHITE_COLOR);
@@ -191,7 +198,7 @@ int main(int argc, char* argv[])
     //Main loop flag
     bool InMenu=true;
     bool play=false;
-
+    bool ChooseCharacter=false;
     //Event handler
     SDL_Event g_event;
 
@@ -209,7 +216,7 @@ int main(int argc, char* argv[])
                 {
                     InMenu=false;
                 }
-                PlayButton.HandlePlayButton(g_event,m_Renderer,play,InMenu);
+                PlayButton.HandlePlayButton(g_event,m_Renderer,ChooseCharacter,InMenu);
                 QuitButton.HandleQuitButton(g_event,m_Renderer,InMenu);
             }
             PlayButton.SetRect(SCREEN_WIDTH/2-PlayButton.get_width_frame()/2,SCREEN_HEIGHT/2);
@@ -220,7 +227,32 @@ int main(int argc, char* argv[])
             SDL_RenderPresent(m_Renderer);
 
     }
-    spaceship.set_type(Player::FLAME);
+
+    while(ChooseCharacter)
+    {
+            while(SDL_PollEvent(&g_event)!=0)
+            {
+                if(g_event.type==SDL_QUIT)
+                {
+                    ChooseCharacter=false;
+                }
+                Choose_Flame.HandleChoose_Flame_Button(g_event,m_Renderer,ChooseCharacter,play,spaceship);
+                Choose_Flash.HandleChoose_Flash_Button(g_event,m_Renderer,ChooseCharacter,play,spaceship);
+                Choose_Gun.HandleChoose_Gun_Button(g_event,m_Renderer,ChooseCharacter,play,spaceship);
+
+            }
+            Choose_Flame.SetRect(60,150);
+            Choose_Flash.SetRect(285,150);
+            Choose_Gun.SetRect(510,150);
+
+            ChooseUI.Render(m_Renderer);
+            Choose_Flame.Render(m_Renderer);
+            Choose_Flash.Render(m_Renderer);
+            Choose_Gun.Render(m_Renderer);
+            SDL_RenderPresent(m_Renderer);
+
+    }
+
     if(spaceship.get_type()==Player::FLAME)
     {
       spaceship.LoadImg("img//flame.png",m_Renderer);
@@ -229,14 +261,15 @@ int main(int argc, char* argv[])
     {
       spaceship.LoadImg("img//flash.png",m_Renderer);
     }
-    else if(spaceship.get_type()==Player::COMMANDER)
+    else if(spaceship.get_type()==Player::GUN   )
     {
-      spaceship.LoadImg("img//commander.png",m_Renderer);
+      spaceship.LoadImg("img//gun.png",m_Renderer);
     }
     spaceship.set_damage();
     SDL_WarpMouseInWindow(m_Window,SCREEN_WIDTH/2-32,SCREEN_HEIGHT-100);
 
     bool GameOver=false;
+
     while(play)
     {
 
@@ -320,8 +353,8 @@ int main(int argc, char* argv[])
             Highscore.Set_Text(number_to_string(HighScore()));
             Highscore.LoadFromRenderText(GameOver_font,m_Renderer);
             Highscore.RenderText(m_Renderer,445,478);
-            QuitButton.SetRect(SCREEN_WIDTH-QuitButton.get_width_frame()-50,SCREEN_HEIGHT-QuitButton.get_height_frame()-100);
-            PlayAgainButton.SetRect(50,SCREEN_HEIGHT-PlayAgainButton.get_height_frame()-100);
+            QuitButton.SetRect(SCREEN_WIDTH-QuitButton.get_width_frame()-50,SCREEN_HEIGHT-QuitButton.get_height_frame()-80);
+            PlayAgainButton.SetRect(50,SCREEN_HEIGHT-PlayAgainButton.get_height_frame()-80);
             QuitButton.Render(m_Renderer);
             PlayAgainButton.Render(m_Renderer);
 
@@ -329,7 +362,7 @@ int main(int argc, char* argv[])
         }
    }
     //Free resources and close SDL
-
+     cout << GameOver;
     Enemy_List.erase(Enemy_List.begin(),Enemy_List.begin()+Enemy_List.size());
     Bullet_List.erase(Bullet_List.begin(),Bullet_List.begin()+Bullet_List.size());
 	close();

@@ -22,6 +22,7 @@ const double PI =3.141592653589793238462643383279;
 
 bool CheckCollision(const SDL_Rect &object1,const SDL_Rect &object2);
 void UpdateHighScore(int score);
+int RandomNumber(int min, int max);
 int HighScore();
 
 string number_to_string(int number);

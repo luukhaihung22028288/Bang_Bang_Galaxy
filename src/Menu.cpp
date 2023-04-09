@@ -50,14 +50,14 @@ bool Menu::IsInside(SDL_Event event)
 
 }
 
-void Menu::HandlePlayButton(SDL_Event event,SDL_Renderer* screen,bool &play,bool &InMenu)
+void Menu::HandlePlayButton(SDL_Event event,SDL_Renderer* screen,bool &pick,bool &InMenu)
 {
 	if(IsInside(event))
 	{
 	    LoadButton("img//PlayButton2.png",screen);
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
-		    play=true;
+		    pick=true;
 		    InMenu=false;
 
 		}
@@ -65,6 +65,59 @@ void Menu::HandlePlayButton(SDL_Event event,SDL_Renderer* screen,bool &play,bool
 	else
 	{
 		LoadButton("img//PlayButton.png",screen);
+	}
+}
+void Menu::HandleChoose_Flame_Button(SDL_Event event,SDL_Renderer* screen,bool &pick,bool &play,Player &spaceship)
+{
+    if(IsInside(event))
+	{
+        LoadButton("img//choice_flame2.png",screen);
+        if(event.type==SDL_MOUSEBUTTONDOWN)
+		{
+		    spaceship.set_type(Player::FLAME);
+            play=true;
+            pick=false;
+		}
+	}
+	else
+	{
+		LoadButton("img//choice_flame1.png",screen);
+	}
+}
+
+void Menu::HandleChoose_Flash_Button(SDL_Event event,SDL_Renderer* screen,bool &pick,bool &play,Player &spaceship)
+{
+    if(IsInside(event))
+	{
+        LoadButton("img//choice_flash2.png",screen);
+        if(event.type==SDL_MOUSEBUTTONDOWN)
+		{
+            spaceship.set_type(Player::FLASH);
+            play=true;
+            pick=false;
+		}
+	}
+	else
+	{
+		LoadButton("img//choice_flash1.png",screen);
+	}
+}
+
+void Menu::HandleChoose_Gun_Button(SDL_Event event,SDL_Renderer* screen,bool &pick,bool &play,Player &spaceship)
+{
+    if(IsInside(event))
+	{
+        LoadButton("img//choice_gun2.png",screen);
+        if(event.type==SDL_MOUSEBUTTONDOWN)
+		{
+            spaceship.set_type(Player::GUN);
+            play=true;
+            pick=false;
+		}
+	}
+	else
+	{
+		LoadButton("img//choice_gun1.png",screen);
 	}
 }
 
@@ -76,7 +129,6 @@ void Menu::HandleQuitButton(SDL_Event event,SDL_Renderer* screen,bool &Quit)
 		if(event.type==SDL_MOUSEBUTTONDOWN)
 		{
 		    Quit=!Quit;
-
 		}
 	}
 	else
