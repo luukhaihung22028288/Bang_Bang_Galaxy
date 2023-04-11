@@ -37,7 +37,7 @@ class Bullet:public LTexture
      bool get_is_move() const {return is_move;}
 
     void HandleMove(const int &x_border,const int &y_border);
-    void HandleEnemyMove();
+    void HandleEnemyMove(const int &x_border,const int &y_border);
     void set_damaged(const int damage_){damage=damage_;}
     int take_damaged() {return damage;}
 

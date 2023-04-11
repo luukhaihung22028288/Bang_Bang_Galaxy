@@ -362,7 +362,6 @@ int main(int argc, char* argv[])
         }
    }
     //Free resources and close SDL
-     cout << GameOver;
     Enemy_List.erase(Enemy_List.begin(),Enemy_List.begin()+Enemy_List.size());
     Bullet_List.erase(Bullet_List.begin(),Bullet_List.begin()+Bullet_List.size());
 	close();

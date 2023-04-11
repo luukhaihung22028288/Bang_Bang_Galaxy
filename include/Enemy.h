@@ -14,11 +14,6 @@ class Enemy:public LTexture
     public:
     Enemy();
     ~Enemy();
-
-    //frame
-    int get_width_frame() const {return width_frame;}
-    int get_height_frame() const {return height_frame;}
-
     //position
     void set_x_pos(const double &xPos) {x_pos=xPos;}
     void set_y_pos(const double &yPos) {y_pos=yPos;}
@@ -39,8 +34,7 @@ class Enemy:public LTexture
     void MoveThreat();
     void MoveDead();
 
-    void rotate_angle_right();
-    void rotate_angle_left();
+    void rotate_angle();
    void set_angle_rotate_speed(const double& angleSpeed) {angle_rotate_speed=angleSpeed;}
    void set_angle(const double& angle_) {angle=angle_;}
 
@@ -75,9 +69,10 @@ class Enemy:public LTexture
     int health;
     int score;
     int delay_shoot_time;
+    int count;
     double type;
 
-
+    bool reverse;
     unsigned long long CurrentTime;
     unsigned long long LastTime;
 

@@ -16,6 +16,8 @@ Enemy::Enemy()
 
     type=1;
     y_limit=0;
+    count=0;
+    reverse=0;
     delay_shoot_time=300;
     health=0;
     score=0;
@@ -39,59 +41,54 @@ bool Enemy::LoadImg(string path, SDL_Renderer* screen)
     {
         width_frame=Rect.w;
         height_frame=Rect.h;
+
     }
     return ret;
 }
 
 void Enemy::Show(SDL_Renderer* screen,const SDL_Rect* clip)
 {
-    Rect.x=x_pos+30;
-    Rect.y=y_pos+30;
-
-    SDL_Rect RenderQuad={Rect.x,Rect.y,width_frame,height_frame};
-
+    SDL_Rect RenderQuad={x_pos,y_pos,width_frame,height_frame};
     SDL_RenderCopy(screen,p_texture,clip,&RenderQuad);
 }
 
 void Enemy::MoveThreat()
 {
-    if(type==1)
-    {
         y_pos+=y_speed;
         if(y_pos>=y_limit)
         {
-        y_pos=y_limit;
+            y_pos=y_limit;
+            x_pos+=x_speed;
+            if (x_pos+width_frame > SCREEN_WIDTH ||x_pos<0 )
+            {
+                x_speed=-x_speed;
+            }
         }
-    }
-    else if(type==2.1||type==2.2)
-    {
-        y_pos+=y_speed;
-        if(y_pos>=y_limit)
-        {
-        y_pos=y_limit;
-        }
-    }
-}
+        Rect.x=x_pos;
+        Rect.y=y_pos;
 
-void Enemy::rotate_angle_right()
+
+}
+void Enemy::MoveDead()
 {
-    angle+=angle_rotate_speed;
-    if(angle>=360)
-    {
-        angle=0;
-    }
-
+    y_pos+=y_speed;
 }
 
-void Enemy::rotate_angle_left()
+void Enemy::rotate_angle()
 {
-    angle-=angle_rotate_speed;
-    if(angle<=-360)
+    if (reverse==1)
     {
-        angle=0;
+        angle-=angle_rotate_speed;
+    }
+    else
+    {
+        angle+=angle_rotate_speed;
+
     }
 
+
 }
+
 bool Enemy::canspawnbullet()
 {
     CurrentTime=SDL_GetTicks();
@@ -110,6 +107,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
 {
     if(type==1)
     {
+
         delay_shoot_time=400;
         Bullet*p_bullet=new Bullet();
         p_bullet->LoadTexture("img//BulletThreat2.png",screen);
@@ -117,48 +115,206 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         p_bullet->set_angle(RandomNumber(20,160));
         p_bullet->set_x_speed(5);
         p_bullet->set_y_speed(5);
-        p_bullet->set_pos(x_pos+width_frame-(p_bullet->GetRect().w),y_pos+height_frame-(p_bullet->GetRect().h)/2);
+        p_bullet->set_pos(x_pos+width_frame/2-(p_bullet->GetRect().w)/2,y_pos+height_frame-3*(p_bullet->GetRect().h)/2);
         bullet.push_back(p_bullet);
     }
     else if(type==2.1)
     {
-        delay_shoot_time=100;
-            Bullet*p_bullet1=new Bullet();
+                delay_shoot_time=50;
+                Bullet*p_bullet1=new Bullet();
+                p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet1->set_is_move(true);
+                p_bullet1->set_angle(angle+180);
+                set_angle_rotate_speed(20);
+                rotate_angle();
+                if (angle +180 >=180 )
+                {
+                    reverse=true;
+                }
+                else if (angle +180 <= 0)
+                {
+                    reverse=false;
+                }
+
+                p_bullet1->set_x_speed(4);
+                p_bullet1->set_y_speed(4);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/3+(p_bullet1->GetRect().w)/2);
+                bullet.push_back(p_bullet1);
+
+    }
+    else if(type==2.2)
+    {
+                delay_shoot_time=100;
+                Bullet*p_bullet1=new Bullet();
                 p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
                 p_bullet1->set_is_move(true);
                 p_bullet1->set_angle(angle);
                 set_angle_rotate_speed(10);
-                rotate_angle_right();
+                rotate_angle();
+                if (angle <0)
+                {
+                    reverse=false;
+                }
+                if (angle >180)
+                {
+                    reverse=true;
+                }
+
                 p_bullet1->set_x_speed(4);
                 p_bullet1->set_y_speed(4);
-                p_bullet1->set_pos(x_pos+width_frame/2+(p_bullet1->GetRect().w)+4,y_pos+height_frame/2);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/3+(p_bullet1->GetRect().w)/2);
                 bullet.push_back(p_bullet1);
-
     }
 
 
-    else if(type==2.2)
+
+    else if(type==2.3)
     {
-        delay_shoot_time=100;
-            Bullet*p_bullet1=new Bullet();
+
+                delay_shoot_time=100;
+                Bullet*p_bullet1=new Bullet();
                 p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
                 p_bullet1->set_is_move(true);
-                p_bullet1->set_angle(angle+180);
-                set_angle_rotate_speed(10);
-                rotate_angle_left();
+                p_bullet1->set_angle(angle);
+                p_bullet1->set_x_speed(2);
+                p_bullet1->set_y_speed(2);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/3+(p_bullet1->GetRect().w)/2);
+                bullet.push_back(p_bullet1);
+
+                Bullet*p_bullet2=new Bullet();
+                p_bullet2->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet2->set_is_move(true);
+                p_bullet2->set_angle(angle+120);
+                p_bullet2->set_x_speed(2);
+                p_bullet2->set_y_speed(2);
+                p_bullet2->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/3+(p_bullet1->GetRect().w)/2);
+                bullet.push_back(p_bullet2);
+
+                Bullet*p_bullet3=new Bullet();
+                p_bullet3->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet3->set_is_move(true);
+                p_bullet3->set_angle(angle+240);
+                p_bullet3->set_x_speed(2);
+                p_bullet3->set_y_speed(2);
+                p_bullet3->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/3+(p_bullet1->GetRect().w)/2);
+                bullet.push_back(p_bullet3);
+
+                set_angle_rotate_speed(15);
+                rotate_angle();
+                if(angle>360)
+                {
+                    reverse=true;
+                }
+                else if (angle <0)
+                {
+                    reverse=false;
+                }
+
+
+
+    }
+    else if (type==3)
+    {
+        for (int i=0; i<3; i++)
+        {
+        delay_shoot_time=1000;
+        Bullet*p_bullet1=new Bullet();
+        p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
+        p_bullet1->set_is_move(true);
+        if(spaceship.GetRect().x-x_pos>=0)
+        {
+            p_bullet1->set_angle(atan((spaceship.GetRect().y-y_pos)/(spaceship.GetRect().x-x_pos))*180/PI);
+        }
+        else if(spaceship.GetRect().x-x_pos<0)
+        {
+            p_bullet1->set_angle(180+atan((spaceship.GetRect().y-y_pos)/(spaceship.GetRect().x-x_pos))*180/PI);
+        }
+        p_bullet1->set_x_speed(4);
+        p_bullet1->set_y_speed(4);
+        if (i==0)
+        {
+        p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2+20,y_pos+height_frame/2+(p_bullet1->GetRect().w)+20);
+        }
+        else
+        {
+          p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/2+(p_bullet1->GetRect().w)+20);
+        }
+        bullet.push_back(p_bullet1);
+        }
+    }
+
+    else if(type==4)
+    {
+
+         if (count%3==1)
+         {
+            for(int i=0;i<20;i++)
+            {
+                delay_shoot_time =500;
+                Bullet*p_bullet1=new Bullet();
+                p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet1->set_is_move(true);
+                p_bullet1->set_angle(0+3*i);
                 p_bullet1->set_x_speed(4);
                 p_bullet1->set_y_speed(4);
-                p_bullet1->set_pos(x_pos+width_frame/2+(p_bullet1->GetRect().w)+4,y_pos+height_frame/2);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/2);
                 bullet.push_back(p_bullet1);
+            }
+         }
+        else if (count%3==2)
+         {
+            for(int i=0;i<20;i++)
+            {
+                delay_shoot_time =500;
+                Bullet*p_bullet1=new Bullet();
+                p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet1->set_is_move(true);
+                p_bullet1->set_angle(60+3*i);
+                p_bullet1->set_x_speed(4);
+                p_bullet1->set_y_speed(4);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/2);
+                bullet.push_back(p_bullet1);
+            }
+         }
+
+          else if (count%3==0)
+         {
+            for(int i=0;i<20;i++)
+            {
+                delay_shoot_time =500;
+                Bullet*p_bullet1=new Bullet();
+                p_bullet1->LoadTexture("img//BulletThreat2.png",screen);
+                p_bullet1->set_is_move(true);
+                p_bullet1->set_angle(120+3*i);
+                p_bullet1->set_x_speed(4);
+                p_bullet1->set_y_speed(4);
+                p_bullet1->set_pos(x_pos+width_frame/2-(p_bullet1->GetRect().w)/2,y_pos+height_frame/2);
+                bullet.push_back(p_bullet1);
+            }
+         }
+         count ++;
+
 
     }
     else if (type==5)
-    {
-/*
+    /*
+        for(int i=0;i<12;i++)
+            {
+                delay_shoot_time=400;
+                Bullet*p_bullet=new Bullet();
+                p_bullet->LoadTexture("BulletThreat2.png",screen);
+                p_bullet->set_is_move(true);
+                p_bullet->set_angle(0+30*i);
+                p_bullet->set_x_speed(4);
+                p_bullet->set_y_speed(4);
+                p_bullet->set_pos(x_pos+width_frame/2-(p_bullet->GetRect().w)/2,y_pos+height_frame/2);
+                bullet.push_back(p_bullet);
+            }
+            */
+
             if(health>=1000)
             {
                 int random = RandomNumber(10,30);
-                cout << random << endl;
                 for(int i=0;i<40;i++)
                 {
                     if (i==random||(i-1)==random||(i+1)==random)
@@ -175,8 +331,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
                     p_bullet->set_pos(x_pos+width_frame/2+(p_bullet->GetRect().w)+4,y_pos+height_frame/2);
                     bullet.push_back(p_bullet);
                 }
-            }
-
+            /*
             else if (health<1000)
             {
 
@@ -275,6 +430,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
                 bullet.push_back(p_bullet2);
 
 */
+/*
         delay_shoot_time=100;
         Bullet*p_bullet=new Bullet();
         p_bullet->LoadTexture("img//BulletThreat2.png",screen);
@@ -284,7 +440,7 @@ void Enemy::MakeBullet(vector<Bullet*> &bullet,SDL_Renderer* screen,Player &spac
         p_bullet->set_y_speed(3);
         p_bullet->set_pos(RandomNumber(0,SCREEN_WIDTH),0);
         bullet.push_back(p_bullet);
-
+    */
     }
 }
 
@@ -296,11 +452,24 @@ void Enemy::set_stats(SDL_Renderer* screen)
         LoadImg("img//enemy1.png",screen);
         score=100;
         y_speed=2;
+        x_speed=2;
     }
-    if(type==2.1||type==2.2)
+    else if(type==2.1||type==2.2||type==2.3)
+    {
+        LoadImg("img//enemy2.png",screen);
+        score=200;
+        y_speed=2;
+    }
+    else if(type==3)
     {
         LoadImg("img//enemy3.png",screen);
-        score=200;
+        score=100;
+        y_speed=2;
+    }
+    else if(type==4)
+    {
+        LoadImg("img//enemy4.png",screen);
+        score=100;
         y_speed=2;
     }
     else if(type==5)

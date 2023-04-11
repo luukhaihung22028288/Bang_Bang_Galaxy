@@ -70,9 +70,9 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
                 }
                 LastTime=CurrentTime;
             }
-        if(p_bullet->get_is_move()==true)
+            if(p_bullet->get_is_move()==true)
             {
-                p_bullet->HandleEnemyMove();
+                p_bullet->HandleEnemyMove(SCREEN_WIDTH+500, SCREEN_HEIGHT+500);
                 p_bullet->Render(screen,NULL);
             }
             else
