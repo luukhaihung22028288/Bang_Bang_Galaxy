@@ -64,9 +64,12 @@ class Player:public LTexture
             else if (get_type()==GUN)
             {
                 damage=25;
+
             }
         }
         int get_damage() const{return damage;}
+        void set_flick (const bool is_flick) {flick=is_flick;}
+        bool get_flick() const {return flick;}
         void Reset();
     private:
         int x_pos;
@@ -75,12 +78,12 @@ class Player:public LTexture
         vector<Bullet*> p_bullet_list;
         bool canspawnbullet;
         bool input_mouse;
+        bool flick;
         int life;
         int type;
         int damage;
         unsigned long long CurrentTime;
         unsigned long long LastTime;
-        unsigned long long PausedTime;
 
 
 

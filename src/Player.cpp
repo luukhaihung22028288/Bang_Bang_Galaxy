@@ -7,7 +7,7 @@ Player::Player()
 
     x_pos = SCREEN_WIDTH/2;
     y_pos = SCREEN_HEIGHT/2;
-
+    flick=0;
     type=0;
     life=3;
     canspawnbullet=0;
@@ -104,7 +104,7 @@ void Player::SpawnBullet(SDL_Renderer* screen)
         {
             Bullet* p_bullet1=new Bullet();
             p_bullet1->LoadTexture("img//bullet2.png",screen);
-            p_bullet1->set_pos(Rect.x+2,Rect.y-width_frame/2);
+            p_bullet1->set_pos(Rect.x,Rect.y-width_frame/2);
             //p_bullet->set_angle(angle);
             p_bullet1->set_x_speed(6);
             p_bullet1->set_y_speed(6);
@@ -113,7 +113,7 @@ void Player::SpawnBullet(SDL_Renderer* screen)
 
             Bullet* p_bullet2=new Bullet();
             p_bullet2->LoadTexture("img//bullet2.png",screen);
-            p_bullet2->set_pos(Rect.x+width_frame/2+5,Rect.y-width_frame/2);
+            p_bullet2->set_pos(Rect.x+width_frame/2+3,Rect.y-width_frame/2);
             //p_bullet->set_angle(angle);
             p_bullet2->set_x_speed(6);
             p_bullet2->set_y_speed(6);
@@ -188,5 +188,6 @@ void Player::Reset()
     x_pos=SCREEN_WIDTH/2-32;
     y_pos=SCREEN_HEIGHT-100;
     life=3;
+
     p_bullet_list.erase(p_bullet_list.begin(),p_bullet_list.begin()+p_bullet_list.size());
 }

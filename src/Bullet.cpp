@@ -6,7 +6,6 @@ Bullet::Bullet()
     y_speed=0;
     is_move=false;
     angle=90;
-
     //type=1;
     starting_point=0;
 }

@@ -20,6 +20,7 @@ class Enemy:public LTexture
     double get_x_pos() const {return x_pos;}
     double get_y_pos() const {return y_pos;}
     void set_y_limit(const double &yLimit) {y_limit=yLimit;}
+     void set_x_limit(const double &xLimit) {x_limit=xLimit;}
     void set_stats(SDL_Renderer* screen);
 
 
@@ -66,6 +67,7 @@ class Enemy:public LTexture
 
 
     int y_limit;
+    int x_limit;
     int health;
     int score;
     int delay_shoot_time;

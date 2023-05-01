@@ -35,6 +35,11 @@ bool LTexture::LoadTexture(string path,SDL_Renderer* screen)
     p_texture=new_texture;
     return p_texture!=NULL;
 }
+void LTexture::setAlpha( Uint8 alpha )
+{
+	//Modulate texture alpha
+    SDL_SetTextureAlphaMod( p_texture, alpha );
+}
 void LTexture::MoveBackGround(SDL_Renderer* screen,const SDL_Rect* clip /*- NULL*/)
 {
     SDL_Rect renderquad1={Rect.x,Rect.y,Rect.w,Rect.h};
@@ -53,6 +58,22 @@ void LTexture::Render(SDL_Renderer* screen,const SDL_Rect* clip /*- NULL*/)
     SDL_Rect renderquad1={Rect.x,Rect.y,Rect.w,Rect.h};
     SDL_RenderCopy(screen,p_texture,clip,&renderquad1);
 }
+
+void LTexture::flicking( Uint8 &alpha )
+{
+    if( alpha <= 255 && alpha>0 )
+    {
+        alpha-=15;
+
+    }
+    else if (alpha ==0)
+    {
+        alpha=255;
+    }
+
+
+}
+
 void LTexture::free()
 {
     if(p_texture!=NULL)

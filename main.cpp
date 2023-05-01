@@ -8,6 +8,7 @@
 #include "Text.h"
 
 
+
 LTexture m_Background;
 LTexture Heart[3];
 LTexture MenuUI;
@@ -96,6 +97,7 @@ bool init()
 				GameOver_font=TTF_OpenFont("text.ttf",55);
                 if(Mix_OpenAudio(44100,MIX_DEFAULT_FORMAT,2,2048)<0)
                 {
+                    printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
                     success=false;
                 }
                 MenuBGM=Mix_LoadWAV("MenuBGM.wav");

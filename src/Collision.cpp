@@ -1,5 +1,6 @@
 #include "Collision.h"
 
+Uint8 a = 255;
 long long CurrentTime;
 long long LastTime;
 void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bullet_List, int &current_score,bool &GameOver,Mix_Chunk* shot_sound,SDL_Renderer* screen)
@@ -60,17 +61,40 @@ void Collision(vector<Enemy*> &Enemy_List,Player &spaceship,vector<Bullet*> &Bul
 
         bool ThreatBullet_to_spaceship=CheckCollision(BulletRect,Main_Rect);
         if(ThreatBullet_to_spaceship && CurrentTime>=LastTime+2000)
-            {
-                spaceship.got_hit();
+        {
+               spaceship.got_hit();
+                spaceship.set_flick(true);
                // Mix_PlayChannel(-1,shot_sound,0);
                 Bullet_List.erase(Bullet_List.begin()+i);
                 if(spaceship.get_life()==0)
                 {
+                    a=255;
+                    spaceship.set_flick(false);
                     GameOver=true;
                 }
                 LastTime=CurrentTime;
+        }
+        if (spaceship.get_flick()==true)
+        {
+            if (CurrentTime>=LastTime+2000)
+            {
+                spaceship.set_flick(false);
+                a=255;
+
             }
-            if(p_bullet->get_is_move()==true)
+            else
+            {
+                spaceship.flicking(a);
+                spaceship.setAlpha(a);
+            }
+        }
+
+        if (spaceship.get_flick()==false)
+            {
+                spaceship.setAlpha(255);
+            }
+
+        if(p_bullet->get_is_move()==true)
             {
                 p_bullet->HandleEnemyMove(SCREEN_WIDTH+500, SCREEN_HEIGHT+500);
                 p_bullet->Render(screen,NULL);

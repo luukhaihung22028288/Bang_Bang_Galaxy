@@ -34,7 +34,4 @@ static SDL_Renderer* m_Renderer=NULL;
 
 
 
-
-
-
 #endif // GAME_UTILS_H

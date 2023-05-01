@@ -25,9 +25,11 @@ class LTexture
     {
         return p_texture;
     }
-    virtual bool LoadTexture(string path, SDL_Renderer* screen);
+    bool LoadTexture(string path, SDL_Renderer* screen);
+    void setAlpha( Uint8 alpha );
     void MoveBackGround(SDL_Renderer* screen,const SDL_Rect* clip=NULL);
     void Render(SDL_Renderer* screen,const SDL_Rect* clip=NULL);
+    void flicking( Uint8 &alpha );
     void free();
     //frame
     int get_width_frame() const {return width_frame;}
